@@ -1,0 +1,29 @@
+Untuk mengelola logika pemanggilan data dari server/API.
+
+Contoh Struktur Folder
+
+src/
+├── assets/
+│   ├── images/
+│   │   ├── hero-salad.png
+│   │   ├── special-salad.png
+│   │   ├── russian-salad.png
+│   │   ├── asian-salad.png
+│   │   └── american-salad.png
+│   └── icons/
+│       ├── user-icon.svg
+│       └── cart-icon.svg
+├── components/
+│   ├── Navbar.js
+│   ├── Navbar.css
+│   ├── Hero.js
+│   ├── Hero.css
+│   ├── MenuSection.js
+│   └── MenuSection.css
+├── pages/
+│   ├── Home.js
+│   └── Home.css
+├── services/
+│   └── api.js
+├── App.js
+└── index.css
