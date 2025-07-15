@@ -1,45 +1,23 @@
-const {DataTypes} = require('sequelize');
-const sequelize = require('../config/database');
+const { DataTypes } = require('sequelize');
+const db = require('../config/database');
 
-const Transaksi = sequelize.define('Transaksi', {
-    id_transaksi: {
-        type: DataTypes.INTEGER(11),
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
-    nama_pelanggan: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
-    tanggal_transaksi: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    metode_bayar: {
-        type: DataTypes.ENUM('tunai', 'transfer'),
-        allowNull: false
-    },
-    uang_bayar: {
-        type: DataTypes.DOUBLE(10, 2),
-        allowNull: false
-    },
-    grand_total: {
-        type: DataTypes.DOUBLE(10, 2),
-        allowNull: false
-    },
-    status_pesanan: {
-        type: DataTypes.ENUM('belum dibayar', 'sudah dibayar'),
-        allowNull: false
-    },
-    status_pembayaran: {
-        type: DataTypes.ENUM('belum lunas', 'lunas'),
-        allowNull: false
-    }
+const Transaksi = db.define('transaksi', {
+  id_transaksi: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  id_meja: DataTypes.INTEGER,
+  nama_pelanggan: DataTypes.STRING,
+  tanggal_transaksi: DataTypes.DATE,
+  metode_bayar: DataTypes.STRING,
+  uang_bayar: DataTypes.INTEGER,
+  grand_total: DataTypes.INTEGER,
+  status_pesanan: DataTypes.STRING,
+  status_pembayaran: DataTypes.STRING,
+  catatan: DataTypes.STRING
 }, {
-    tableName: 'transaksi',
-    timestamps: true
+  tableName: 'transaksi',
+  timestamps: false
 });
+Transaksi.associate = models => {
+    Transaksi.hasMany(models.DetailTransaksi, { foreignKey: 'id_transaksi' });
+};
 
 module.exports = Transaksi;

@@ -1,20 +1,29 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const sequelize = require("./config/database");
 
-//import body parser
-const bodyParser = require('body-parser')
+dotenv.config();
+const app = express();
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors());
+app.use(express.json());
 
-// parse application/json
-app.use(bodyParser.json())
+// Import routes
+app.use("/api/meja", require("./routes/MejaRoutes"));
 
-//import route posts
-const postsRouter = require('./routes/posts');
-app.use('/posts', postsRouter); // use route posts di Express
+app.use('/api/menu', require('./routes/MenuRoutes'));
+app.use('/api/user', require('./routes/UserRoutes'));
 
-app.listen(port, () => {
-  console.log(`app running at http://localhost:${port}`)
-})
+app.use('/api/transaksi', require('./routes/TransaksiRoutes'));
+
+
+
+
+// Connect DB and Start server
+const PORT = process.env.PORT || 5000;
+sequelize.sync({ alter: true }).then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+});

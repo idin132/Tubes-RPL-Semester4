@@ -1,18 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-//import Bootstrap CSS
+import ReactDOM from 'react-dom/client'; // ✅ penting: gunakan 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
-
-//BrowserRouter dari react router
 import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
