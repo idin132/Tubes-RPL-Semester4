@@ -9,6 +9,7 @@ import DaftarPesananKasir from './pages/kasir/DaftarPesananKasir';
 import PembayaranKasir from './pages/kasir/PembayaranKasir';
 import StrukTransaksi from './components/StrukTransaksi';
 import StrukWrapper from './pages/kasir/StrukWrapper';
+import LandingPage from './components/LandingPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/kasir/pembayaran/:id" element={<PembayaranKasir />} />
       <Route path="/struk/:id" element={<StrukTransaksi />} />
       <Route path="/kasir/struk/:id" element={<StrukWrapper />} />
+      <Route path="/" element={<LandingPage />} />
     </Routes>
   );
 }
