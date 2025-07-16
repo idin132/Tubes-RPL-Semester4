@@ -7,7 +7,7 @@ const SidebarKasir = () => {
       <div className="sidebar-brand">🍽 DineFlow</div>
       <div className="sidebar-menu">
         <a href="/kasir">📊 Dashboard</a>
-        <a href="#">📋 Daftar Pesanan</a>
+        <a href="/kasir/daftar-pesanan">📋 Daftar Pesanan</a>
         <a href="#">🔁 Riwayat Transaksi</a>
       </div>
     </div>

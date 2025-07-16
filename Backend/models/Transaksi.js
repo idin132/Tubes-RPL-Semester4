@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
+const DetailTransaksi = require('./DetailTransaksi');
 
 const Transaksi = db.define('transaksi', {
   id_transaksi: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -16,8 +17,7 @@ const Transaksi = db.define('transaksi', {
   tableName: 'transaksi',
   timestamps: false
 });
-Transaksi.associate = models => {
-    Transaksi.hasMany(models.DetailTransaksi, { foreignKey: 'id_transaksi' });
-};
+
+Transaksi.hasMany(DetailTransaksi, { foreignKey: 'id_transaksi' });
 
 module.exports = Transaksi;

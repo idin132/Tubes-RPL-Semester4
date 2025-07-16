@@ -1,0 +1,60 @@
+.struk-wrapper {
+  padding: 40px;
+  background: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.struk-box {
+  background: white;
+  width: 300px;
+  padding: 20px;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-size: 12px;
+  color: #000;
+}
+
+.struk-box table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.struk-box h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.struk-box hr {
+  border: none;
+  border-top: 1px dashed #aaa;
+  margin: 12px 0;
+}
+
+.struk-box table {
+  width: 100%;
+  font-size: 14px;
+  border-collapse: collapse;
+}
+
+.struk-box th, .struk-box td {
+  text-align: left;
+  padding: 4px 0;
+}
+
+.struk-box td:last-child, .struk-box th:last-child {
+  text-align: right;
+}
+
+.btn-cetak {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}

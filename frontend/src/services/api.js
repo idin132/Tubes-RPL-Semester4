@@ -33,3 +33,23 @@ export const updateStatusMeja = async (id, status) => {
 export const createTransaksi = async (data) => {
   return axios.post('http://localhost:5000/api/transaksi', data);
 };
+
+export const getTransaksiBelumBayar = async () => {
+  const res = await axios.get(`${API_URL}/transaksi/belum-bayar`);
+  return res.data;
+};
+
+export const batalkanTransaksi = async (id) => {
+  return await axios.put(`${API_URL}/transaksi/${id}/batalkan`);
+};
+
+export const getTransaksiById = async (id) => {
+  const res = await fetch(`http://localhost:5000/api/transaksi/${id}`);
+  if (!res.ok) throw new Error('Gagal mengambil transaksi');
+  return res.json();
+};
+
+export const updatePembayaranTransaksi = async (id, data) => {
+  return axios.put(`http://localhost:5000/api/transaksi/${id}`, data);
+};
+

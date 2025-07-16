@@ -46,3 +46,55 @@ exports.createTransaksi = async (req, res) => {
     res.status(500).json({ message: 'Gagal membuat transaksi', error: err.message });
   }
 };
+
+exports.getTransaksiBelumBayar = async (req, res) => {
+  try {
+    const transaksi = await Transaksi.findAll({
+      where: { status_pembayaran: 'belum bayar' }, // tambahkan jika perlu
+      include: [
+        { model: DetailTransaksi, include: [Menu] }
+      ],
+      order: [['tanggal_transaksi', 'DESC']] // ✅ pakai kolom yang memang ada
+    });
+    res.json(transaksi);
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengambil data transaksi', error: error.message });
+  }
+};
+
+exports.batalkanTransaksi = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Transaksi.update(
+      { status_pesanan: 'dibatalkan', status_pembayaran: 'dibatalkan' },
+      { where: { id_transaksi: id } }
+    );
+    res.json({ message: 'Transaksi dibatalkan' });
+  } catch (err) {
+    res.status(500).json({ message: 'Gagal membatalkan transaksi', error: err.message });
+  }
+};
+
+exports.getById = async (req, res) => {
+  try {
+    const trx = await Transaksi.findByPk(req.params.id, {
+      include: [{ model: DetailTransaksi, include: 'menu' }]
+    });
+    if (!trx) return res.status(404).json({ message: 'Tidak ditemukan' });
+    res.json(trx);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.updateTransaksi = async (req, res) => {
+  try {
+    const trx = await Transaksi.findByPk(req.params.id);
+    if (!trx) return res.status(404).json({ message: 'Tidak ditemukan' });
+    await trx.update(req.body);
+    res.json({ message: 'Transaksi diperbarui' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
