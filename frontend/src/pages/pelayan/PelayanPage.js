@@ -18,6 +18,11 @@ const PelayanPage = () => {
 
   const openDialog = (m) => setSelected(m); // buka pilihan
   const closeDialog = () => setSelected(null); // tutup pilihan
+  const user = JSON.parse(localStorage.getItem("user"));
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  };
 
   const changeStatus = async (status) => {
     if (!selected) return;
@@ -31,7 +36,12 @@ const PelayanPage = () => {
       <SidebarPelayan />
       <div className="pelayan-main">
         <div className="topbar">
-          <div className="topbar-right">Dwi Putra Juniargi ⌄</div>
+          <div className="topbar-right">
+            <span className="username">{user?.nama}</span>
+          </div>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
 
         <div className="dashboard-content">

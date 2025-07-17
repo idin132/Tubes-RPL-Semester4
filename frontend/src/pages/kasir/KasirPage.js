@@ -1,8 +1,8 @@
 import React from 'react';
 import SidebarKasir from '../../components/SidebarKasir';
-import Topbar from '../../components/Topbar';
 import '../../assets/kasir.css';
 import { useEffect, useState } from 'react';
+// import Topbar from '../../components/Topbar';
 import { getStatistikKasir } from '../../services/api';
 
 const KasirPage = () => {
@@ -29,7 +29,7 @@ const KasirPage = () => {
     <div className="kasir-container">
       <SidebarKasir />
       <div className="kasir-main">
-        <Topbar />
+
         <div className="dashboard-content">
           <h1>Dashboard</h1>
 

@@ -5,6 +5,7 @@ import {
   updatePembayaranTransaksi,
 } from "../../services/api";
 import SidebarKasir from "../../components/SidebarKasir";
+// import Topbar from "../../components/TopBar";
 import "../../assets/kasir.css";
 
 const PembayaranKasir = () => {
@@ -53,6 +54,7 @@ const PembayaranKasir = () => {
     <div className="kasir-container">
       <SidebarKasir />
       <div className="kasir-main">
+        {/* <Topbar /> */}
         <h1>Pembayaran</h1>
         <div className="box-pembayaran">
           <p>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SidebarKasir from "../../components/SidebarKasir";
-import Topbar from "../../components/Topbar";
+// import Topbar from "../../components/Topbar";
 import DetailPesananModal from "../../components/DetailPesananModal";
 import "../../assets/kasir.css";
 import { getTransaksiSudahBayar } from "../../services/api";
