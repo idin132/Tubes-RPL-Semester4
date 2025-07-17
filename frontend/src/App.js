@@ -11,6 +11,8 @@ import StrukTransaksi from './components/StrukTransaksi';
 import StrukWrapper from './pages/kasir/StrukWrapper';
 import LandingPage from './components/LandingPage';
 import RiwayatTransaksi from './pages/kasir/RiwayatTransaksi';
+import DaftarMenuKoki from './pages/koki/DaftarMenuKoki';
+import DaftarPesananKoki from './pages/koki/DaftarPesananKoki';
 
 function App() {
   return (
@@ -20,12 +22,14 @@ function App() {
       <Route path="/kasir" element={<KasirPage />} />
       <Route path="/pelayan" element={<PelayanPage />} />
       <Route path="/order" element={<OrderPage />} />
+      <Route path="/koki/pesanan" element={<DaftarPesananKoki />} />
       <Route path="/kasir/daftar-pesanan" element={<DaftarPesananKasir />} />
       <Route path="/kasir/pembayaran/:id" element={<PembayaranKasir />} />
       <Route path="/struk/:id" element={<StrukTransaksi />} />
       <Route path="/kasir/struk/:id" element={<StrukWrapper />} />
       <Route path="/" element={<LandingPage />} />
       <Route path="/kasir/riwayat-transaksi" element={<RiwayatTransaksi />} />
+      <Route path="/koki/menu" element={<DaftarMenuKoki />} />
     </Routes>
   );
 }

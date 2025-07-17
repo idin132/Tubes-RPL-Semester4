@@ -52,3 +52,28 @@ exports.deleteMenu = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// PUT /api/menu/:id - Ubah status_menu
+exports.updateStatusMenu = async (req, res) => {
+  const { id } = req.params;
+  const { status_menu } = req.body;
+
+  if (!status_menu) {
+    return res.status(400).json({ message: 'Status menu harus diisi.' });
+  }
+
+  try {
+    const [updated] = await Menu.update(
+      { status_menu },
+      { where: { id_menu: id } }
+    );
+
+    if (updated) {
+      res.status(200).json({ message: 'Status menu berhasil diperbarui.' });
+    } else {
+      res.status(404).json({ message: 'Menu tidak ditemukan.' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengubah status menu', error });
+  }
+};

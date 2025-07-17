@@ -72,3 +72,17 @@ export const getStatistikKasir = async (id) => {
   if (!res.ok) throw new Error('Gagal mengambil transaksi');
   return res.json();
 };
+
+export const updateStatusMenu = async (id, status) => {
+  return axios.put(`${API_URL}/menu/${id}`, { status_menu: status });
+};
+
+export const updateStatusPesanan = async (id) => {
+  const res = await axios.patch(`${API_URL}/transaksi/${id}/selesai`);
+  return res.data;
+};
+
+export const getTransaksiPending = async () => {
+  const res = await axios.get(`${API_URL}/transaksi/pending`);
+  return res.data;
+};

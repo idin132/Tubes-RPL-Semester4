@@ -214,3 +214,37 @@ exports.getStatistikKasir = async (req, res) => {
     res.status(500).json({ message: 'Gagal mengambil data statistik', error: error.message });
   }
 };
+
+// update status_pesanan jadi 'selesai'
+exports.updateStatusPesanan = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const transaksi = await Transaksi.findByPk(id);
+    if (!transaksi) {
+      return res.status(404).json({ message: 'Transaksi tidak ditemukan' });
+    }
+
+    transaksi.status_pesanan = 'selesai';
+    await transaksi.save();
+
+    res.json({ message: 'Status pesanan berhasil diperbarui', transaksi });
+  } catch (error) {
+    console.error('Error update status:', error);
+    res.status(500).json({ message: 'Gagal mengupdate status pesanan' });
+  }
+};
+
+exports.getTransaksiPending = async (req, res) => {
+  try {
+    const transaksi = await Transaksi.findAll({
+      where: { status_pesanan: 'pending' },
+      include: [
+        { model: DetailTransaksi, include: [Menu] }
+      ],
+      order: [['tanggal_transaksi', 'DESC']]
+    });
+    res.json(transaksi);
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengambil data pending', error });
+  }
+};
