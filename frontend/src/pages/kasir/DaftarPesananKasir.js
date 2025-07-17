@@ -9,6 +9,8 @@ import DetailPesananModal from "../../components/DetailPesananModal";
 import EditPesananModal from "../../components/EditPesananModal";
 import BatalkanPesananModal from "../../components/BatalkanPesananModal";
 import { batalkanTransaksi } from "../../services/api";
+import { updateDetailTransaksi } from "../../services/api"; // pastikan ada
+
 
 const DaftarPesananKasir = () => {
   const [transaksi, setTransaksi] = useState([]);
@@ -117,9 +119,18 @@ const DaftarPesananKasir = () => {
         <EditPesananModal
           transaksi={selectedTransaksi}
           onClose={() => setShowEditModal(false)}
-          onSave={(updatedDetail) => {
-            console.log("Detail baru:", updatedDetail);
-            setShowEditModal(false);
+          onSave={async (updatedDetail) => {
+            try {
+              await updateDetailTransaksi(
+                selectedTransaksi.id_transaksi,
+                updatedDetail
+              );
+              setShowEditModal(false);
+              fetchData(); // refresh daftar
+            } catch (err) {
+              console.error("Gagal update:", err);
+              alert("Gagal menyimpan perubahan");
+            }
           }}
         />
       )}

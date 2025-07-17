@@ -7,7 +7,6 @@ router.get('/belum-bayar', TransaksiController.getTransaksiBelumBayar);
 router.put('/:id/batalkan', TransaksiController.batalkanTransaksi);
 router.get('/:id', TransaksiController.getById);
 router.put('/:id', TransaksiController.updateTransaksi);
-
-
+router.put('/:id_transaksi/detail', TransaksiController.updateDetailTransaksi);
 
 module.exports = router;

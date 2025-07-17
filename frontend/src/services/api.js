@@ -53,3 +53,8 @@ export const updatePembayaranTransaksi = async (id, data) => {
   return axios.put(`http://localhost:5000/api/transaksi/${id}`, data);
 };
 
+export const updateDetailTransaksi = async (id, detail_transaksis) => {
+  return axios.put(`http://localhost:5000/api/transaksi/${id}/detail`, { detail_transaksis });
+};
+
+
