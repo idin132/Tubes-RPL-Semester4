@@ -57,4 +57,18 @@ export const updateDetailTransaksi = async (id, detail_transaksis) => {
   return axios.put(`http://localhost:5000/api/transaksi/${id}/detail`, { detail_transaksis });
 };
 
+export const getTransaksiSudahBayar = async () => {
+  const res = await axios.get(`${API_URL}/transaksi/sudah-bayar`);
+  return res.data;
+};
 
+// export const getStatistikKasir = async () => {
+//   const res = await axios.get(`${API_URL}/transaksi/statistik`);
+//   return res.data;
+// };
+
+export const getStatistikKasir = async (id) => {
+  const res = await fetch(`http://localhost:5000/api/transaksi/statistik`);
+  if (!res.ok) throw new Error('Gagal mengambil transaksi');
+  return res.json();
+};

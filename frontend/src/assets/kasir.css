@@ -347,3 +347,13 @@ input, select {
   margin-top: 16px;
   cursor: pointer;
 }
+
+.status-sudah {
+  background-color: #28a745;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 13px;
+  margin-bottom: 5px;
+}

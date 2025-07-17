@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Transaksi = require('../models/Transaksi');
 const DetailTransaksi = require('../models/DetailTransaksi');
 const Meja = require('../models/Meja');
@@ -147,5 +148,69 @@ exports.updateDetailTransaksi = async (req, res) => {
       message: "Gagal memperbarui detail transaksi",
       error: err.message,
     });
+  }
+};
+
+exports.getTransaksiSudahBayar = async (req, res) => {
+  try {
+    const transaksi = await Transaksi.findAll({
+      where: { status_pembayaran: 'sudah bayar' },
+      include: [
+        {
+          model: DetailTransaksi,
+          include: [Menu]
+        }
+      ],
+      order: [['tanggal_transaksi', 'DESC']]
+    });
+
+    res.json(transaksi); // ✅ pastikan ini
+  } catch (err) {
+    console.error('Gagal mengambil transaksi sudah bayar:', err);
+    res.status(500).json({
+      message: 'Gagal mengambil transaksi sudah bayar',
+      error: err.message
+    });
+  }
+};
+
+exports.getStatistikKasir = async (req, res) => {
+  try {
+    const hariIni = new Date();
+    hariIni.setHours(0, 0, 0, 0);
+
+    const besok = new Date(hariIni);
+    besok.setDate(besok.getDate() + 1);
+
+    // Pendapatan hari ini
+    const transaksiHariIni = await Transaksi.findAll({
+      where: {
+        tanggal_transaksi: {
+          [Op.gte]: hariIni,
+          [Op.lt]: besok,
+        },
+        status_pembayaran: 'sudah bayar',
+      }
+    });
+
+    const pendapatanHariIni = transaksiHariIni.reduce((sum, trx) => sum + trx.grand_total, 0);
+
+    // Jumlah pesanan hari ini
+    const jumlahPesananHariIni = transaksiHariIni.length;
+
+    // Total semua pendapatan
+    const semuaTransaksi = await Transaksi.findAll({
+      where: { status_pembayaran: 'sudah bayar' }
+    });
+
+    const totalPendapatan = semuaTransaksi.reduce((sum, trx) => sum + trx.grand_total, 0);
+
+    res.json({
+      pendapatanHariIni,
+      jumlahPesananHariIni,
+      totalPendapatan
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengambil data statistik', error: error.message });
   }
 };
