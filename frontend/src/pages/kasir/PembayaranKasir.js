@@ -8,7 +8,7 @@ import SidebarKasir from "../../components/SidebarKasir";
 // import Topbar from "../../components/TopBar";
 import "../../assets/kasir.css";
 
-const PembayaranKasir = () => {
+const PembayaranKasir = ({onClose}) => {
   const { id } = useParams();
   const [transaksi, setTransaksi] = useState(null);
   const [metode, setMetode] = useState("cash");
@@ -29,6 +29,15 @@ const PembayaranKasir = () => {
       console.error("Gagal mengambil data transaksi:", err);
     }
   };
+
+  const handleBatal = () => {
+    if (onClose) onClose();
+    navigate("/kasir/daftar-pesanan");
+  };
+
+  <button onClick={handleBatal} className="btn batal">
+    Kembali
+  </button>;
 
   const handleSimpan = async () => {
     const parsedBayar = parseInt(uangBayar);
@@ -89,6 +98,9 @@ const PembayaranKasir = () => {
 
           <button className="btn-pembayaran" onClick={handleSimpan}>
             Simpan dan Cetak Struk
+          </button>
+          <button onClick={handleBatal} className="btn batal">
+            Kembali
           </button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SidebarKasir from "../../components/SidebarKasir";
-// import Topbar from "../../components/Topbar";
+import Topbar from "../../components/Topbar";
 import DetailPesananModal from "../../components/DetailPesananModal";
 import "../../assets/kasir.css";
 import { getTransaksiSudahBayar } from "../../services/api";
@@ -36,6 +36,7 @@ const RiwayatTransaksi = () => {
     <div className="kasir-container">
       <SidebarKasir />
       <div className="kasir-main">
+        <Topbar />
         <h1>Riwayat Transaksi</h1>
         <div className="grid-pesanan">
           {transaksi.map((trx) => (

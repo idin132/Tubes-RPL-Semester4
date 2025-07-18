@@ -44,9 +44,9 @@ body {
 }
 
 .koki-main {
-  flex-grow: 1;
-  padding: 30px;
-  background: #f9f9f9;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-grid {

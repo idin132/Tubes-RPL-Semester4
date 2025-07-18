@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SidebarKoki from "../../components/SidebarKoki";
+import Topbar from "../../components/Topbar";
 import "../../assets/koki.css";
 import { getMenus, updateStatusMenu } from "../../services/api";
 
@@ -25,6 +26,7 @@ const DaftarMenuKoki = () => {
     <div className="koki-container">
       <SidebarKoki />
       <div className="koki-main">
+        <Topbar />
         <h1>Daftar Menu</h1>
         <div className="menu-grid">
           {menus.map((menu) => (

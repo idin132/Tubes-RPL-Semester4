@@ -50,6 +50,7 @@ const DaftarPesananKasir = () => {
     <div className="kasir-container">
       <SidebarKasir />
       <div className="kasir-main">
+      <Topbar />
         <h1>Daftar Pesanan</h1>
         <div className="grid-pesanan">
           {transaksi.map((trx) => (

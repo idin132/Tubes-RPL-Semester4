@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SidebarKoki from "../../components/SidebarKoki";
+import Topbar from "../../components/Topbar";
 import "../../assets/koki.css";
 import { getTransaksiPending,  updateStatusPesanan } from "../../services/api";
 
@@ -34,6 +35,7 @@ const DaftarPesananKoki = () => {
     <div className="koki-container">
       <SidebarKoki />
       <div className="koki-main">
+        <Topbar />
         <h1>Daftar Pesanan</h1>
         <div className="grid-pesanan">
           {transaksi.map((trx) => (

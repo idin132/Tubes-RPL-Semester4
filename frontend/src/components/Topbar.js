@@ -11,11 +11,11 @@ const Topbar = () => {
 
   return (
     <div className="topbar">
-      <div className="topbar-left">
+      {/* <div className="topbar-left">
         <span className="brand">🍽 DineFlow</span>
-      </div>
+      </div> */}
       <div className="topbar-right">
-        <span className="username">{user?.nama_user || 'Guest'}</span>
+        <span className="username">{user?.nama || 'Guest'}</span>
         <button className="logout-btn" onClick={handleLogout}>
           Logout
         </button>

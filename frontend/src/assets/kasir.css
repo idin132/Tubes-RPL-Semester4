@@ -348,6 +348,10 @@ input, select {
   cursor: pointer;
 }
 
+.btn.batal{
+  margin-top: 15px;
+}
+
 .status-sudah {
   background-color: #28a745;
   color: white;
