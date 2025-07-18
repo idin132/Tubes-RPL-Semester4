@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children, allowedRole }) => {
+const ProtectedRoute = ({ children, allowedRoles }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (!user) {
@@ -9,9 +9,9 @@ const ProtectedRoute = ({ children, allowedRole }) => {
   }
 
   // allow multiple roles too
-  const allowed = Array.isArray(allowedRole)
-    ? allowedRole.includes(user.role)
-    : user.role === allowedRole;
+  const allowed = Array.isArray(allowedRoles)
+    ? allowedRoles.includes(user.role)
+    : user.role === allowedRoles;
 
   if (!allowed) {
     return <Navigate to="/unauthorized" />;

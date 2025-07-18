@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import SidebarKasir from "../../components/SidebarKasir";
+import SidebarOwner from "../../components/SidebarOwner";
 import Topbar from "../../components/Topbar";
 import DetailPesananModal from "../../components/DetailPesananModal";
 import "../../assets/kasir.css";
 import { getTransaksiSudahBayar } from "../../services/api";
 
-const RiwayatTransaksi = () => {
+const RiwayatTransaksiOwner = () => {
   const [transaksi, setTransaksi] = useState([]);
   const [selectedTransaksi, setSelectedTransaksi] = useState(null);
   const [filterText, setFilterText] = useState("");
@@ -88,7 +88,7 @@ const RiwayatTransaksi = () => {
 
   return (
     <div className="kasir-container">
-      <SidebarKasir />
+      <SidebarOwner />
       <div className="kasir-main">
         <Topbar />
         <div className="dashboard-content">
@@ -131,4 +131,4 @@ const RiwayatTransaksi = () => {
   );
 };
 
-export default RiwayatTransaksi;
+export default RiwayatTransaksiOwner;

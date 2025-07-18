@@ -1,0 +1,298 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Container Layout */
+.owner-container {
+  display: flex;
+  min-height: 100vh;
+
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #1c1c1c;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-brand {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.sidebar-menu a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 12px 0;
+  font-size: 15px;
+}
+
+.sidebar-menu a:hover {
+  background-color: #333;
+  padding-left: 8px;
+}
+
+.owner-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dashboard content */
+.dashboard-content {
+  padding: 30px;
+}
+
+.dashboard-content h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Stats boxes */
+.stats {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-box {
+  flex: 1;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stat-box h4 {
+  margin-bottom: 10px;
+}
+
+.stat-box.green {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.stat-box.yellow {
+  background-color: #f1c40f;
+  color: black;
+}
+
+.stat-box.outline {
+  background-color: white;
+  border: 2px solid #000;
+}
+
+/* Chart section */
+.chart-section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.chart-placeholder {
+  height: 300px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: linear-gradient(120deg, #dbeafe, #fdf2f8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-weight: bold;
+}
+
+/* Layout meja */
+.layout {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* 10 kolom per baris */
+  gap: 20px;
+  margin-top: 30px;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px); /* supaya bisa scroll, sesuaikan jika perlu */
+}
+
+.layout-wrapper {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+
+.meja {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
+  user-select: none;
+  transition: 0.3s;
+}
+
+.meja.tersedia {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.meja.terisi {
+  background-color: #e74c3c;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menu-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.menu-form input,
+.menu-form select,
+.menu-form textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.menu-form button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  grid-column: span 2;
+  cursor: pointer;
+}
+
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.menu-table th,
+.menu-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.menu-table th {
+  background-color: #f5f5f5;
+}
+
+.menu-table button {
+  margin-right: 6px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menu-table button:first-of-type {
+  background-color: #ffc107;
+  color: black;
+}
+
+.menu-table button:last-of-type {
+  background-color: #dc3545;
+  color: white;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.badge.green {
+  background-color: #28a745;
+  color: white;
+}
+
+.badge.red {
+  background-color: #dc3545;
+  color: white;
+}
+
+.menu-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 20px;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+
+.menu-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.menu-toolbar input[type="text"] {
+  flex: 1;
+  max-width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+div.rdtd {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+div.rdtd table {
+  font-size: 15px;
+}
+
+/* Tombol aksi di tabel (Edit & Hapus) */
+.btn-edit {
+  background-color: #ffc107;
+  color: #212529;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  margin-right: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+

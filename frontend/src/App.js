@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from  "../src/components/ProtectedRoute";
+import ProtectedRoute from "../src/components/ProtectedRoute";
 import MenuPage from "./pages/menu/MenuPage";
 import LoginPage from "./pages/login/LoginPage";
 import KasirPage from "./pages/kasir/KasirPage";
@@ -14,6 +14,10 @@ import LandingPage from "./components/LandingPage";
 import RiwayatTransaksi from "./pages/kasir/RiwayatTransaksi";
 import DaftarMenuKoki from "./pages/koki/DaftarMenuKoki";
 import DaftarPesananKoki from "./pages/koki/DaftarPesananKoki";
+import OwnerPage from "./pages/owner/OwnerPage";
+import OwnerMejaPage from "./pages/owner/OwnerMejaPage";
+import RiwayatTransaksiOwner from "./pages/owner/RiwayatTransaksiOwner";
+import OwnerMenuPage from "./pages/owner/OwnerMenuPage";
 
 function App() {
   return (
@@ -24,7 +28,7 @@ function App() {
       <Route
         path="/kasir"
         element={
-          <ProtectedRoute allowedRole="kasir">
+          <ProtectedRoute allowedRoles={["kasir", "owner"]}>
             <KasirPage />
           </ProtectedRoute>
         }
@@ -33,7 +37,7 @@ function App() {
       <Route
         path="/kasir/daftar-pesanan"
         element={
-          <ProtectedRoute allowedRole="kasir">
+          <ProtectedRoute allowedRoles={["kasir", "owner"]}>
             <DaftarPesananKasir />
           </ProtectedRoute>
         }
@@ -42,7 +46,7 @@ function App() {
       <Route
         path="/kasir/riwayat-transaksi"
         element={
-          <ProtectedRoute allowedRole="kasir">
+          <ProtectedRoute allowedRoles={["kasir", "owner"]}>
             <RiwayatTransaksi />
           </ProtectedRoute>
         }
@@ -51,7 +55,7 @@ function App() {
       <Route
         path="/kasir/pembayaran/:id"
         element={
-          <ProtectedRoute allowedRole="kasir">
+          <ProtectedRoute allowedRoles={["kasir", "owner"]}>
             <PembayaranKasir />
           </ProtectedRoute>
         }
@@ -60,7 +64,7 @@ function App() {
       <Route
         path="/struk/:id"
         element={
-          <ProtectedRoute allowedRole="kasir">
+          <ProtectedRoute allowedRoles={["kasir", "owner"]}>
             <StrukTransaksi />
           </ProtectedRoute>
         }
@@ -69,7 +73,7 @@ function App() {
       <Route
         path="/kasir/struk/:id"
         element={
-          <ProtectedRoute allowedRole="kasir">
+          <ProtectedRoute allowedRoles={["kasir", "owner"]}>
             <StrukWrapper />
           </ProtectedRoute>
         }
@@ -80,7 +84,7 @@ function App() {
       <Route
         path="/pelayan"
         element={
-          <ProtectedRoute allowedRole="pelayan">
+          <ProtectedRoute allowedRoles={["pelayan", "owner"]}>
             <PelayanPage />
           </ProtectedRoute>
         }
@@ -91,7 +95,7 @@ function App() {
       <Route
         path="/koki/menu"
         element={
-          <ProtectedRoute allowedRole="koki">
+          <ProtectedRoute allowedRoles={["koki", "owner"]}>
             <DaftarMenuKoki />
           </ProtectedRoute>
         }
@@ -100,8 +104,46 @@ function App() {
       <Route
         path="/koki/pesanan"
         element={
-          <ProtectedRoute allowedRole="koki">
+          <ProtectedRoute allowedRoles={["koki", "owner"]}>
             <DaftarPesananKoki />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Untuk hak akses owner */}
+
+      <Route
+        path="/owner"
+        element={
+          <ProtectedRoute allowedRoles={["owner"]}>
+            <OwnerPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/owner/meja"
+        element={
+          <ProtectedRoute allowedRoles={["owner"]}>
+            <OwnerMejaPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/owner/riwayat-transaksi"
+        element={
+          <ProtectedRoute allowedRoles={["owner"]}>
+            <RiwayatTransaksiOwner />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/owner/menu"
+        element={
+          <ProtectedRoute allowedRoles={["owner"]}>
+            <OwnerMenuPage />
           </ProtectedRoute>
         }
       />

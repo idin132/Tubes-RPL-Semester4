@@ -32,6 +32,8 @@ const LoginPage = () => {
         navigate("/pelayan");
       } else if (user.role === "koki") {
         navigate("/koki/menu");
+      } else if (user.role === "owner") {
+        navigate("/owner");
       } else {
         navigate("/unauthorized");
       }

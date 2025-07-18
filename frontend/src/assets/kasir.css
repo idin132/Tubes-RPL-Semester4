@@ -164,11 +164,11 @@ body {
 }
 
 .btn-pembayaran {
-  background-color: #4caf50;
-  color: white;
-  border: none;
   padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
   border-radius: 6px;
+  border: none;
   cursor: pointer;
 }
 
@@ -344,7 +344,7 @@ input, select {
   width: 100%;
   font-weight: bold;
   border-radius: 8px;
-  margin-top: 16px;
+  margin: 10px;
   cursor: pointer;
 }
 
@@ -360,4 +360,9 @@ input, select {
   display: inline-block;
   font-size: 13px;
   margin-bottom: 5px;
+}
+
+/* Tambahan kecil */
+.dataTable {
+  margin-top: 20px;
 }

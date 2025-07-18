@@ -16,7 +16,7 @@ app.use('/api/menu', require('./routes/MenuRoutes'));
 app.use('/api/user', require('./routes/UserRoutes'));
 
 app.use('/api/transaksi', require('./routes/TransaksiRoutes'));
-
+app.use("/api/owner", require("./routes/OwnerRoutes"));
 
 
 
