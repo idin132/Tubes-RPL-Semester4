@@ -241,7 +241,7 @@ exports.getTransaksiPending = async (req, res) => {
       include: [
         { model: DetailTransaksi, include: [Menu] }
       ],
-      order: [['tanggal_transaksi', 'DESC']]
+      order: [['tanggal_transaksi', 'ASC']]
     });
     res.json(transaksi);
   } catch (error) {

@@ -14,6 +14,7 @@ import LandingPage from "./components/LandingPage";
 import RiwayatTransaksi from "./pages/kasir/RiwayatTransaksi";
 import DaftarMenuKoki from "./pages/koki/DaftarMenuKoki";
 import DaftarPesananKoki from "./pages/koki/DaftarPesananKoki";
+import DaftarPesananPelayan from "./pages/pelayan/DaftarPesananPelayan";
 import OwnerPage from "./pages/owner/OwnerPage";
 import OwnerMejaPage from "./pages/owner/OwnerMejaPage";
 import RiwayatTransaksiOwner from "./pages/owner/RiwayatTransaksiOwner";
@@ -86,6 +87,15 @@ function App() {
         element={
           <ProtectedRoute allowedRoles={["pelayan", "owner"]}>
             <PelayanPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/pelayan/pesanan"
+        element={
+          <ProtectedRoute allowedRoles={["pelayan", "owner"]}>
+            <DaftarPesananPelayan />
           </ProtectedRoute>
         }
       />
