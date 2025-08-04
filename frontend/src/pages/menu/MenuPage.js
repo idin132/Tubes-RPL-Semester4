@@ -45,7 +45,7 @@ const MenuPage = () => {
         <input name="nama_menu" placeholder="Nama Menu" value={form.nama_menu} onChange={handleChange} required />
         <input name="harga_menu" placeholder="Harga" value={form.harga_menu} onChange={handleChange} required />
         <input name="kategori" placeholder="Kategori" value={form.kategori} onChange={handleChange} required />
-        <input name="status_menu" placeholder="Status (tersedia/habis)" value={form.status_menu} onChange={handleChange} required />
+        <input name="status_menu" placeholder="Status (tersedia/tidak tersedia)" value={form.status_menu} onChange={handleChange} required />
         <textarea name="deskripsi" placeholder="Deskripsi" value={form.deskripsi} onChange={handleChange}></textarea>
         <button type="submit">➕ Tambah Menu</button>
       </form>

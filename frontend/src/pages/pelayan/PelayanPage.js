@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { getMeja, updateStatusMeja } from '../../services/api';
-import SidebarPelayan from '../../components/SidebarPelayan';
-import '../../assets/pelayan.css';
+import React, { useEffect, useState } from "react";
+import { getMeja, updateStatusMeja } from "../../services/api";
+import SidebarPelayan from "../../components/SidebarPelayan";
+import "../../assets/pelayan.css";
 
 const PelayanPage = () => {
   const [meja, setMeja] = useState([]);
-  const [selected, setSelected] = useState(null);            // meja yg diklik
+  const [selected, setSelected] = useState(null); // meja yg diklik
 
   useEffect(() => {
     fetchMeja();
@@ -16,8 +16,13 @@ const PelayanPage = () => {
     setMeja(data);
   };
 
-  const openDialog = (m) => setSelected(m);                  // buka pilihan
-  const closeDialog = () => setSelected(null);               // tutup pilihan
+  const openDialog = (m) => setSelected(m); // buka pilihan
+  const closeDialog = () => setSelected(null); // tutup pilihan
+  const user = JSON.parse(localStorage.getItem("user"));
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  };
 
   const changeStatus = async (status) => {
     if (!selected) return;
@@ -31,26 +36,34 @@ const PelayanPage = () => {
       <SidebarPelayan />
       <div className="pelayan-main">
         <div className="topbar">
-          <div className="topbar-right">Dwi Putra Juniargi ⌄</div>
+          <div className="topbar-right">
+            <span className="username">{user?.nama}</span>
+          </div>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
 
         <div className="dashboard-content">
           <h1>Manajemen Meja</h1>
-
-          <div className="layout">
-            {meja.map((m) => (
-              <div
-                key={m.id_meja}
-                className={`meja ${m.status_meja === 'tersedia' ? 'tersedia' : 'terisi'}`}
-                onClick={() => openDialog(m)}
-              >
-                {m.nomor_meja}
-              </div>
-            ))}
+          <div className="layout-wrapper">
+            <div className="layout">
+              {meja.map((m) => (
+                <div
+                  key={m.id_meja}
+                  className={`meja ${
+                    m.status_meja === "tersedia" ? "tersedia" : "terisi"
+                  }`}
+                  onClick={() => openDialog(m)}
+                >
+                  {m.nomor_meja}
+                </div>
+              ))}
+            </div>
           </div>
-
+          {/* 
           <div className="label-kasir">Kasir</div>
-          <div className="label-pintu">Pintu</div>
+          <div className="label-pintu">Pintu</div> */}
         </div>
       </div>
 
@@ -61,13 +74,13 @@ const PelayanPage = () => {
             <h3>Ubah Status Meja {selected.nomor_meja}</h3>
             <button
               className="btn tersedia"
-              onClick={() => changeStatus('tersedia')}
+              onClick={() => changeStatus("tersedia")}
             >
               Tersedia
             </button>
             <button
               className="btn terisi"
-              onClick={() => changeStatus('terisi')}
+              onClick={() => changeStatus("terisi")}
             >
               Terisi
             </button>

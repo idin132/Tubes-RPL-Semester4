@@ -1,16 +1,23 @@
 import React, { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+import { useParams, useNavigate } from "react-router-dom";
 import "../assets/StrukTransaksi.css";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-const StrukTransaksi = ({ transaksi }) => {
+const StrukTransaksi = ({ transaksi, onClose }) => {
+  const navigate = useNavigate();
   const componentRef = useRef();
 
   // const handlePrint = useReactToPrint({
   //   content: () => componentRef.current,
   //   documentTitle: `Struk_Pembayaran_${transaksi.id_transaksi}`,
   // });
+
+  const handleBatal = () => {
+    if (onClose) onClose();
+    navigate("/kasir/daftar-pesanan");
+  };
 
   const handleDownloadPDF = () => {
     const element = componentRef.current;
@@ -87,6 +94,9 @@ const StrukTransaksi = ({ transaksi }) => {
 
       <button className="btn-cetak" onClick={handleDownloadPDF}>
         💾 Simpan PDF
+      </button>
+      <button onClick={handleBatal} className="btn batal">
+        Kembali
       </button>
     </div>
   );

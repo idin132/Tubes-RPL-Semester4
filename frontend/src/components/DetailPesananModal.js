@@ -12,8 +12,7 @@ const DetailPesananModal = ({ transaksi, onClose, handleEdit, onEdit, onBatalkan
         <h2>Nomor Meja - {transaksi.id_meja}</h2>
         {/* <p><strong>Tipe Pesanan:</strong> Takeaway</p> */}
         <p><strong>Nama Pelanggan:</strong> {transaksi.nama_pelanggan}</p>
-        <p className="status-belum">Belum Dibayar</p>
-
+        <p><strong>Status Pesanan:</strong> {transaksi.status_pesanan}</p>
         <ul className="menu-list">
           {transaksi.detail_transaksis.map((item, index) => (
             <li key={index}>

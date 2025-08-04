@@ -10,9 +10,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: url('../assets/bg-login.svg') no-repeat center center; */
+  background-image: url('../../../public/gambar/bg-login.png');
   background-size: cover;
-  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .login-box {

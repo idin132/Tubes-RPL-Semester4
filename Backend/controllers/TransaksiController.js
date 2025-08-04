@@ -1,7 +1,9 @@
+const { Op } = require('sequelize');
 const Transaksi = require('../models/Transaksi');
 const DetailTransaksi = require('../models/DetailTransaksi');
 const Meja = require('../models/Meja');
 const Menu = require('../models/Menu');
+
 
 
 exports.createTransaksi = async (req, res) => {
@@ -98,3 +100,151 @@ exports.updateTransaksi = async (req, res) => {
   }
 };
 
+exports.updateDetailTransaksi = async (req, res) => {
+  const { id_transaksi } = req.params;
+  const { detail_transaksis } = req.body; // array of { id_menu, jumlah }
+
+  try {
+    // Validasi dulu apakah transaksi ada
+    const transaksi = await Transaksi.findByPk(id_transaksi);
+    if (!transaksi) {
+      return res.status(404).json({ message: "Transaksi tidak ditemukan" });
+    }
+
+    // Hapus detail transaksi lama
+    await DetailTransaksi.destroy({ where: { id_transaksi } });
+
+    let total = 0;
+
+    // Loop dan buat ulang berdasarkan harga dari DB
+    for (const item of detail_transaksis) {
+      const menu = await Menu.findByPk(item.id_menu);
+      if (!menu) continue;
+
+      const sub_total = menu.harga_menu * item.jumlah;
+      total += sub_total;
+
+      await DetailTransaksi.create({
+        id_transaksi,
+        id_menu: item.id_menu,
+        jumlah: item.jumlah,
+        sub_total,
+      });
+    }
+
+    const service_fee = 1000; // bisa diatur dinamis
+    const grand_total = total + service_fee;
+
+    // Update grand_total di transaksi utama
+    await transaksi.update({ grand_total });
+
+    res.json({
+      message: "Detail transaksi berhasil diperbarui",
+      grand_total,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Gagal memperbarui detail transaksi",
+      error: err.message,
+    });
+  }
+};
+
+exports.getTransaksiSudahBayar = async (req, res) => {
+  try {
+    const transaksi = await Transaksi.findAll({
+      where: { status_pembayaran: 'sudah bayar' },
+      include: [
+        {
+          model: DetailTransaksi,
+          include: [Menu]
+        }
+      ],
+      order: [['tanggal_transaksi', 'DESC']]
+    });
+
+    res.json(transaksi); // ✅ pastikan ini
+  } catch (err) {
+    console.error('Gagal mengambil transaksi sudah bayar:', err);
+    res.status(500).json({
+      message: 'Gagal mengambil transaksi sudah bayar',
+      error: err.message
+    });
+  }
+};
+
+exports.getStatistikKasir = async (req, res) => {
+  try {
+    const hariIni = new Date();
+    hariIni.setHours(0, 0, 0, 0);
+
+    const besok = new Date(hariIni);
+    besok.setDate(besok.getDate() + 1);
+
+    // Pendapatan hari ini
+    const transaksiHariIni = await Transaksi.findAll({
+      where: {
+        tanggal_transaksi: {
+          [Op.gte]: hariIni,
+          [Op.lt]: besok,
+        },
+        status_pembayaran: 'sudah bayar',
+      }
+    });
+
+    const pendapatanHariIni = transaksiHariIni.reduce((sum, trx) => sum + trx.grand_total, 0);
+
+    // Jumlah pesanan hari ini
+    const jumlahPesananHariIni = transaksiHariIni.length;
+
+    // Total semua pendapatan
+    const semuaTransaksi = await Transaksi.findAll({
+      where: { status_pembayaran: 'sudah bayar' }
+    });
+
+    const totalPendapatan = semuaTransaksi.reduce((sum, trx) => sum + trx.grand_total, 0);
+
+    res.json({
+      pendapatanHariIni,
+      jumlahPesananHariIni,
+      totalPendapatan
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengambil data statistik', error: error.message });
+  }
+};
+
+// update status_pesanan jadi 'selesai'
+exports.updateStatusPesanan = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const transaksi = await Transaksi.findByPk(id);
+    if (!transaksi) {
+      return res.status(404).json({ message: 'Transaksi tidak ditemukan' });
+    }
+
+    transaksi.status_pesanan = 'selesai';
+    await transaksi.save();
+
+    res.json({ message: 'Status pesanan berhasil diperbarui', transaksi });
+  } catch (error) {
+    console.error('Error update status:', error);
+    res.status(500).json({ message: 'Gagal mengupdate status pesanan' });
+  }
+};
+
+exports.getTransaksiPending = async (req, res) => {
+  try {
+    const transaksi = await Transaksi.findAll({
+      where: { status_pesanan: 'pending' },
+      include: [
+        { model: DetailTransaksi, include: [Menu] }
+      ],
+      order: [['tanggal_transaksi', 'ASC']]
+    });
+    res.json(transaksi);
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengambil data pending', error });
+  }
+};
