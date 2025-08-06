@@ -15,7 +15,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/user/login", form);
+      const res = await axios.post("https://api-dineflowrpl-production.up.railway.app/api/user/login", form);
       const user = res.data.user;
 
       if (!user || !user.role) {
