@@ -40,7 +40,7 @@ const OwnerMejaPage = () => {
         <div className="dashboard-content">
           <h1>Manajemen Meja</h1>
           <div className="layout-wrapper">
-            <div className="layout">
+            <div className="layout-content">
               {meja.map((m) => (
                 <div
                   key={m.id_meja}

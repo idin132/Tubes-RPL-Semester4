@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getMeja, updateStatusMeja } from "../../services/api";
 import SidebarPelayan from "../../components/SidebarPelayan";
+import Topbar from "../../components/Topbar";
 import "../../assets/pelayan.css";
 
 const PelayanPage = () => {
@@ -35,19 +36,11 @@ const PelayanPage = () => {
     <div className="pelayan-container">
       <SidebarPelayan />
       <div className="pelayan-main">
-        <div className="topbar">
-          <div className="topbar-right">
-            <span className="username">{user?.nama}</span>
-          </div>
-          <button className="logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
-
+        <Topbar />
         <div className="dashboard-content">
           <h1>Manajemen Meja</h1>
           <div className="layout-wrapper">
-            <div className="layout">
+            <div className="layout-content">
               {meja.map((m) => (
                 <div
                   key={m.id_meja}
