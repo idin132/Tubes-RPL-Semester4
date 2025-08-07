@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import "../css/LoginPage.css";
 
 const LoginPage = () => {
@@ -15,7 +16,10 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://api-dineflowrpl-production.up.railway.app/api/user/login", form);
+      const res = await axios.post(
+        "https://api-dineflowrpl-production.up.railway.app/api/user/login",
+        form
+      );
       const user = res.data.user;
 
       if (!user || !user.role) {
@@ -24,7 +28,21 @@ const LoginPage = () => {
       }
 
       localStorage.setItem("user", JSON.stringify(user));
-      alert(res.data.message);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: res.data.message,
+      });
 
       if (user.role === "kasir") {
         navigate("/kasir");
