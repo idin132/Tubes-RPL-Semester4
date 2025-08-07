@@ -139,74 +139,76 @@ const OwnerMenuPage = () => {
       <SidebarOwner />
       <div className="owner-main">
         <Topbar />
-        <h1>Daftar Menu</h1>
+        <div className="dashboard-content">
+          <h1>Daftar Menu</h1>
 
-        <div className="menu-toolbar">
-          <input
-            type="text"
-            placeholder="Cari menu..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+          <div className="menu-toolbar">
+            <input
+              type="text"
+              placeholder="Cari menu..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            <button onClick={() => setShowForm(!showForm)}>
+              {showForm ? "Tutup Form" : "Tambah Menu"}
+            </button>
+          </div>
+
+          {showForm && (
+            <form className="menu-form" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="nama_menu"
+                placeholder="Nama Menu"
+                value={form.nama_menu}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="number"
+                name="harga_menu"
+                placeholder="Harga"
+                value={form.harga_menu}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="kategori"
+                placeholder="Kategori"
+                value={form.kategori}
+                onChange={handleChange}
+                required
+              />
+              <select
+                name="status_menu"
+                value={form.status_menu}
+                onChange={handleChange}
+              >
+                <option value="Tersedia">Tersedia</option>
+                <option value="Tidak Tersedia">Tidak Tersedia</option>
+              </select>
+              <textarea
+                name="deskripsi"
+                placeholder="Deskripsi"
+                value={form.deskripsi}
+                onChange={handleChange}
+              />
+              <button type="submit">{editId ? "Update" : "Tambah"}</button>
+            </form>
+          )}
+
+          <DataTable
+            columns={columns}
+            data={filteredMenu}
+            pagination
+            highlightOnHover
+            striped
+            responsive
+            persistTableHead
+            noDataComponent="Tidak ada menu ditemukan."
           />
-          <button onClick={() => setShowForm(!showForm)}>
-            {showForm ? "Tutup Form" : "Tambah Menu"}
-          </button>
         </div>
-
-        {showForm && (
-          <form className="menu-form" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="nama_menu"
-              placeholder="Nama Menu"
-              value={form.nama_menu}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="number"
-              name="harga_menu"
-              placeholder="Harga"
-              value={form.harga_menu}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="kategori"
-              placeholder="Kategori"
-              value={form.kategori}
-              onChange={handleChange}
-              required
-            />
-            <select
-              name="status_menu"
-              value={form.status_menu}
-              onChange={handleChange}
-            >
-              <option value="Tersedia">Tersedia</option>
-              <option value="Tidak Tersedia">Tidak Tersedia</option>
-            </select>
-            <textarea
-              name="deskripsi"
-              placeholder="Deskripsi"
-              value={form.deskripsi}
-              onChange={handleChange}
-            />
-            <button type="submit">{editId ? "Update" : "Tambah"}</button>
-          </form>
-        )}
-
-        <DataTable
-          columns={columns}
-          data={filteredMenu}
-          pagination
-          highlightOnHover
-          striped
-          responsive
-          persistTableHead
-          noDataComponent="Tidak ada menu ditemukan."
-        />
       </div>
     </div>
   );

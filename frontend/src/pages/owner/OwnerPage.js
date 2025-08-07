@@ -35,13 +35,13 @@ const OwnerPage = () => {
           <h1>Dashboard</h1>
 
           <div className="stats">
-            <div className="stat-box green">
-              <h4>Pendapatan Hari Ini</h4>
-              <p>Rp {statistik.pendapatanHariIni.toLocaleString()}</p>
-            </div>
-            <div className="stat-box yellow">
+            <div className="stat-box outline">
               <h4>Pesanan Hari Ini</h4>
               <p>{statistik.jumlahPesananHariIni}</p>
+            </div>
+            <div className="stat-box outline">
+              <h4>Pendapatan Hari Ini</h4>
+              <p>Rp {statistik.pendapatanHariIni.toLocaleString()}</p>
             </div>
             <div className="stat-box outline">
               <h4>Total Pendapatan</h4>
