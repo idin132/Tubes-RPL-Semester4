@@ -53,7 +53,20 @@ const StrukTransaksi = ({ transaksi, onClose }) => {
         </p>
         <p>
           <strong>Tanggal:</strong>{" "}
-          {new Date(transaksi.tanggal_transaksi).toLocaleString()}
+          {(() => {
+            const date = new Date(transaksi.tanggal_transaksi);
+            const pad = (num) => String(num).padStart(2, "0");
+
+            const day = pad(date.getDate());
+            const month = pad(date.getMonth() + 1); // bulan dimulai dari 0
+            const year = date.getFullYear();
+
+            const hours = pad(date.getHours());
+            const minutes = pad(date.getMinutes());
+            const seconds = pad(date.getSeconds());
+
+            return `${day}-${month}-${year}, ${hours}:${minutes}:${seconds}`;
+          })()}
         </p>
         <hr />
         <table>

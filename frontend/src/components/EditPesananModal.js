@@ -1,6 +1,7 @@
 // components/kasir/EditPesananModal.js
 import React, { useState } from "react";
 import "../assets/EditModal.css";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const EditPesananModal = ({ transaksi, onClose, onSave }) => {
@@ -22,9 +23,36 @@ const EditPesananModal = ({ transaksi, onClose, onSave }) => {
   };
 
   const handleKonfirmasi = () => {
-    if (window.confirm("Simpan perubahan pesanan?")) {
-      onSave(detailPesanan);
-    }
+    Swal.fire({
+      title: "Simpan Perubahan?",
+      text: "Perubahan akan disimpan.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, simpan",
+      cancelButtonText: "Batal",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await onSave(detailPesanan);
+          Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: "Pesanan berhasil diperbarui!",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          onClose(); // Tutup modal setelah sukses
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Gagal",
+            text: "Terjadi kesalahan saat menyimpan.",
+          });
+        }
+      }
+    });
   };
 
   const handleBatal = () => {

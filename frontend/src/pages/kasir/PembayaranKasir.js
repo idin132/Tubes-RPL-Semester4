@@ -5,10 +5,10 @@ import {
   updatePembayaranTransaksi,
 } from "../../services/api";
 import SidebarKasir from "../../components/SidebarKasir";
-// import Topbar from "../../components/TopBar";
+import Topbar from "../../components/Topbar";
 import "../../assets/kasir.css";
 
-const PembayaranKasir = ({onClose}) => {
+const PembayaranKasir = ({ onClose }) => {
   const { id } = useParams();
   const [transaksi, setTransaksi] = useState(null);
   const [metode, setMetode] = useState("cash");
@@ -63,45 +63,50 @@ const PembayaranKasir = ({onClose}) => {
     <div className="kasir-container">
       <SidebarKasir />
       <div className="kasir-main">
-        {/* <Topbar /> */}
-        <h1>Pembayaran</h1>
-        <div className="box-pembayaran">
-          <p>
-            <strong>Nomor Meja:</strong> {transaksi.id_meja}
-          </p>
-          <p>
-            <strong>Nama:</strong> {transaksi.nama_pelanggan}
-          </p>
-          <p>
-            <strong>Total Tagihan:</strong> Rp.{" "}
-            {transaksi.grand_total?.toLocaleString()}
-          </p>
+        <Topbar />
+        <div className="dashboard-content">
+          <h1>Pembayaran</h1>
+          <div className="box-pembayaran">
+            <p>
+              <strong>Nomor Meja:</strong> {transaksi.id_meja}
+            </p>
+            <p>
+              <strong>Nama:</strong> {transaksi.nama_pelanggan}
+            </p>
+            <p>
+              <strong>Total Tagihan:</strong> Rp.{" "}
+              {transaksi.grand_total?.toLocaleString()}
+            </p>
 
-          <div className="form-group">
-            <label>Metode Pembayaran:</label>
-            <select value={metode} onChange={(e) => setMetode(e.target.value)}>
-              <option value="cash">Cash</option>
-              <option value="qris">QRIS</option>
-              <option value="debit">Debit</option>
-            </select>
+            <div className="form-group">
+              <label>Metode Pembayaran:</label>
+              <select
+                value={metode}
+                onChange={(e) => setMetode(e.target.value)}
+              >
+                <option value="cash">Cash</option>
+                <option value="qris">QRIS</option>
+                <option value="debit">Debit</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Uang Bayar:</label>
+              <input
+                type="number"
+                value={uangBayar}
+                onChange={(e) => setUangBayar(e.target.value)}
+                placeholder="Masukkan jumlah uang"
+              />
+            </div>
+
+            <button className="btn-pembayaran" onClick={handleSimpan}>
+              Simpan dan Cetak Struk
+            </button>
+            <button onClick={handleBatal} className="btn batal">
+              Kembali
+            </button>
           </div>
-
-          <div className="form-group">
-            <label>Uang Bayar:</label>
-            <input
-              type="number"
-              value={uangBayar}
-              onChange={(e) => setUangBayar(e.target.value)}
-              placeholder="Masukkan jumlah uang"
-            />
-          </div>
-
-          <button className="btn-pembayaran" onClick={handleSimpan}>
-            Simpan dan Cetak Struk
-          </button>
-          <button onClick={handleBatal} className="btn batal">
-            Kembali
-          </button>
         </div>
       </div>
     </div>

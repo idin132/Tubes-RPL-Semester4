@@ -1,6 +1,7 @@
 import React from 'react';
 import SidebarKasir from '../../components/SidebarKasir';
 import '../../assets/kasir.css';
+import Swal from "sweetalert2";
 import { useEffect, useState } from 'react';
 import Topbar from "../../components/Topbar";
 // import Topbar from '../../components/Topbar';
@@ -35,11 +36,11 @@ const KasirPage = () => {
           <h1>Dashboard</h1>
 
           <div className="stats">
-            <div className="stat-box green">
+            <div className="stat-box outline">
               <h4>Pendapatan Hari Ini</h4>
               <p>Rp {statistik.pendapatanHariIni.toLocaleString()}</p>
             </div>
-            <div className="stat-box yellow">
+            <div className="stat-box outline">
               <h4>Pesanan Hari Ini</h4>
               <p>{statistik.jumlahPesananHariIni}</p>
             </div>
@@ -50,12 +51,12 @@ const KasirPage = () => {
           </div>
 
           {/* Dummy chart tetap bisa ditampilkan */}
-          <div className="chart-section">
+          {/* <div className="chart-section">
             <h2>Pendapatan Selama 30 Hari Kebelakang</h2>
             <div className="chart-placeholder">
               <p>[Grafik Dummy Placeholder]</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
