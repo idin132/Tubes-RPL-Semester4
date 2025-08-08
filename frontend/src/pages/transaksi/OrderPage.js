@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getMenus, createTransaksi } from "../../services/api";
 import MenuCard from "../../components/MenuCard";
+import Swal from "sweetalert2";
 import "../../assets/OrderPage.css";
 
 const OrderPage = () => {
@@ -64,8 +65,18 @@ const OrderPage = () => {
 
   const handleCheckout = async () => {
     const id_meja = parseInt(localStorage.getItem("id_meja") || "0");
-    if (!id_meja) return alert("ID Meja tidak ditemukan.");
-    if (!namaPelanggan.trim()) return alert("Nama pelanggan wajib diisi.");
+    if (!id_meja)
+      return Swal.fire({
+        title: "Perhatian!",
+        text: "Id Meja Tidak Ditemukan.",
+        icon: "warning",
+      });
+    if (!namaPelanggan.trim())
+      return Swal.fire({
+        title: "Perhatian!",
+        text: "Nama Pelanggan Wajib Diisi",
+        icon: "warning",
+      });
 
     const data = {
       id_meja,
@@ -81,12 +92,20 @@ const OrderPage = () => {
 
     try {
       await createTransaksi(data);
-      alert("Pesanan berhasil dikirim!");
+      Swal.fire({
+        title: "Berhasil!",
+        text: "Pesanan Anda telah dikonfirmasi.",
+        icon: "success",
+      });
       setCart([]);
       setNamaPelanggan("");
       setShowConfirm(false);
     } catch (err) {
-      alert("Gagal mengirim pesanan!");
+      Swal.fire({
+        title: "Error!",
+        text: "Gagal Mengirim Pesanan",
+        icon: "error",
+      });
     }
   };
 
@@ -227,35 +246,50 @@ const OrderPage = () => {
             </p>
             <button
               className="checkout-btn-cst"
-              onClick={() => setShowConfirm(true)}
+              onClick={() => {
+                Swal.fire({
+                  title: "Konfirmasi Pesanan",
+                  text: "Pesanan sudah sesuai?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Ya, lanjutkan!",
+                  cancelButtonText: "Batal",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    handleCheckout();
+                  }
+                });
+              }}
             >
               Pesan Sekarang
             </button>
+            {/* <button
+                className="checkout-btn-cst"
+                onClick={() => setShowConfirm(true)}
+              >
+                Pesan Sekarang
+              </button> */}
           </div>
         </div>
 
         {/* Konfirmasi Checkout */}
-        {showConfirm && (
-          <div
-            className="confirm-overlay-cst"
-            onClick={() => setShowConfirm(false)}
-          >
-            <div
-              className="confirm-box-cst"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <p>Pesanan sudah sesuai?</p>
-              <div className="confirm-buttons-cst">
-                <button className="yes" onClick={handleCheckout}>
-                  Ya
-                </button>
-                <button className="no" onClick={() => setShowConfirm(false)}>
-                  Tidak
-                </button>
+        {/* {showConfirm && (
+            <div className="confirm-overlay-cst" onClick={() => setShowConfirm(false)}>
+              <div className="confirm-box-cst" onClick={(e) => e.stopPropagation()}>
+                <p>Pesanan sudah sesuai?</p>
+                <div className="confirm-buttons-cst">
+                  <button className="yes" onClick={handleCheckout}>
+                    Ya
+                  </button>
+                  <button className="no" onClick={() => setShowConfirm(false)}>
+                    Tidak
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )} */}
       </div>
     </div>
   );
