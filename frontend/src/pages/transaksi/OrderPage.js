@@ -42,7 +42,7 @@ const OrderPage = () => {
     { label: "Semua Menu", value: "Semua" },
     { label: "Makanan", value: "Makanan" },
     { label: "Minuman", value: "Minuman" },
-    { label: "Camilan", value: "Camilan" }, // samakan ejaan dengan DB
+    { label: "Camilan", value: "Camilan" },
     { label: "Paket Hemat", value: "Paket Hemat" },
   ];
 
