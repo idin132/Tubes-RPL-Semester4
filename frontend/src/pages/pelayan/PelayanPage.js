@@ -37,10 +37,9 @@ const PelayanPage = () => {
       <SidebarPelayan />
       <div className="pelayan-main">
         <Topbar />
-        <div className="dashboard-content-pelayan">
+        <div className="dashboard-content-kasir">
           {/* <div className="card-content-kasir"> */}
             <h1>Manajemen Meja</h1>
-            <div className="hr-judul"></div>
             <div className="layout-wrapper">
               <div className="layout-content">
                 {meja.map((m) => (
