@@ -61,30 +61,42 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-wrapper">
-      <div className="login-box">
-        <h2 className="login-title">SIGN IN</h2>
-        <form onSubmit={handleLogin}>
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            value={form.username}
-            onChange={handleChange}
-            required
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-          {error && <p className="error-msg">{error}</p>}
-          <button type="submit">Sign In</button>
-        </form>
+    <div className="">
+    {/* Navbar di atas */}
+      <div className="navbar">
+        <h1 className="navbar-title">DineFlow</h1>
       </div>
+
+      <div className="login-wrapper">
+        <div className="login-box">
+          <h2 className="login-title"><b>SIGN IN</b></h2>
+          <div className="hr"></div>
+          <form onSubmit={handleLogin} className="form-class">
+            <label><b>Username</b></label>
+            <input
+              placeholder="Masukkan Username Anda"
+              type="text"
+              name="username"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+            <label><b>Password</b></label>
+            <input
+              placeholder="Masukkan Password Anda"
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+            {error && <p className="error-msg">{error}</p>}
+            <div className="hr"></div>
+            <button type="submit">Sign In</button>
+          </form>
+        </div>
+      </div>
+      
     </div>
   );
 };
