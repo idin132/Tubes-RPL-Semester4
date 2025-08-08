@@ -31,17 +31,19 @@ const DaftarPesananPelayan = () => {
   //   };
 
   return (
-    <div className="koki-container">
+    <div className="kasir-container">
       <SidebarKoki />
-      <div className="koki-main">
+      <div className="kasir-main">
         <Topbar />
-        <div className="dashboard-content">
+        <div className="dashboard-content-kasir">
           <h1>Daftar Pesanan Baru</h1>
+          {/* <div className="hr-pesanan"></div> */}
           <div className="grid-pesanan">
             {transaksi.map((trx) => (
               <div key={trx.id_transaksi} className="kartu-pesanan">
                 <div className="header-kartu">
-                  <strong>{trx.id_meja || "XX"}</strong>
+                  <strong className="font-cst-meja">Meja No. {trx.id_meja || "XX"}</strong>
+                  <br/>
                   <span>
                     {new Date(trx.tanggal_transaksi).toLocaleTimeString([], {
                       hour: "2-digit",
@@ -61,11 +63,6 @@ const DaftarPesananPelayan = () => {
                       </li>
                     ))}
                   </ul>
-                </div>
-                <div className="footer-kartu">
-                  <b>
-                    <p>Pesanan Siap Diantarkan</p>
-                  </b>
                 </div>
               </div>
             ))}

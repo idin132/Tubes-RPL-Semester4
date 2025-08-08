@@ -9,7 +9,8 @@ const DetailPesananModal = ({ transaksi, onClose, handleEdit, onEdit, onBatalkan
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>×</button>
-        <h2>Nomor Meja - {transaksi.id_meja}</h2>
+        <h2 className='cst-font'>Nomor Meja - {transaksi.id_meja}</h2>
+        <div className='hr-rinci'></div>
         {/* <p><strong>Tipe Pesanan:</strong> Takeaway</p> */}
         <p><strong>Nama Pelanggan:</strong> {transaksi.nama_pelanggan}</p>
         <p><strong>Status Pesanan:</strong> {transaksi.status_pesanan}</p>
@@ -22,8 +23,9 @@ const DetailPesananModal = ({ transaksi, onClose, handleEdit, onEdit, onBatalkan
           ))}
         </ul>
 
+<div className='hr-rinci-2'></div>
         <div className="modal-actions">
-          <button className="btn-cancel" onClick={onClose}>Tutup</button>
+          <button className="btn-cancel-kasir" onClick={onClose}>Tutup</button>
           {/* <button className="btn-warn" onClick={() => onBatalkan(transaksi.id_transaksi)}>Batalkan</button> */}
         </div>
       </div>

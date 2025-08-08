@@ -65,27 +65,30 @@ const EditPesananModal = ({ transaksi, onClose, onSave }) => {
       <div className="modal-box edit-pesanan">
         <div className="modal-header">
           <h3>Nomor Meja - {transaksi.id_meja || "XX"}</h3>
-          <button onClick={onClose}>✖</button>
+          <button className="btn-close" onClick={onClose}></button>
         </div>
 
         <div className="modal-body">
-          <p>
-            <strong>Tipe Pesanan:</strong> Takeaway
-          </p>
-          <p>
-            <strong>Nama Pelanggan:</strong> {transaksi.nama_pelanggan}
-          </p>
-          <span className="badge merah">Belum Dibayar</span>
+
+            <p>
+              <strong>Nama Pelanggan:</strong> {transaksi.nama_pelanggan}
+            </p>
+            <p>
+              <strong>Status: </strong> 
+              <span className="badge merah">Belum Dibayar</span>
+            </p>
+            
+
 
           <ul className="list-menu">
             {detailPesanan.map((item, index) => (
               <li key={index} className="item-menu">
                 <span>{item.menu?.nama_menu}</span>
-                <span>Rp. {item.menu?.harga_menu.toLocaleString()}</span>
+                <span className="table-harga">Rp{item.menu?.harga_menu.toLocaleString()}</span>
                 <div className="qty-control">
-                  <button onClick={() => handleUbahJumlah(index, -1)}>-</button>
+                  <button className="btn-minus" onClick={() => handleUbahJumlah(index, -1)}>-</button>
                   <span>{item.jumlah}</span>
-                  <button onClick={() => handleUbahJumlah(index, 1)}>+</button>
+                  <button className="btn-plus" onClick={() => handleUbahJumlah(index, 1)}>+</button>
                 </div>
                 <button
                   className="hapus"
@@ -99,12 +102,12 @@ const EditPesananModal = ({ transaksi, onClose, onSave }) => {
         </div>
 
         <div className="modal-footer">
-          <button onClick={handleBatal} className="btn batal">
-            Kembali
-          </button>
-          <button onClick={handleKonfirmasi} className="btn simpan">
+          <div onClick={handleBatal} className="btn batal">
+            Batal
+          </div>
+          <div onClick={handleKonfirmasi} className="btn simpan">
             Simpan Perubahan
-          </button>
+          </div>
         </div>
       </div>
     </div>

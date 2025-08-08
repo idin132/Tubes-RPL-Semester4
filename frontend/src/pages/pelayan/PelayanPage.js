@@ -37,26 +37,26 @@ const PelayanPage = () => {
       <SidebarPelayan />
       <div className="pelayan-main">
         <Topbar />
-        <div className="dashboard-content">
-          <h1>Manajemen Meja</h1>
-          <div className="layout-wrapper">
-            <div className="layout-content">
-              {meja.map((m) => (
-                <div
-                  key={m.id_meja}
-                  className={`meja ${
-                    m.status_meja === "tersedia" ? "tersedia" : "terisi"
-                  }`}
-                  onClick={() => openDialog(m)}
-                >
-                  {m.nomor_meja}
-                </div>
-              ))}
-            </div>
+        <div className="dashboard-content-pelayan">
+          {/* <div className="card-content-kasir"> */}
+            <h1>Manajemen Meja</h1>
+            <div className="hr-judul"></div>
+            <div className="layout-wrapper">
+              <div className="layout-content">
+                {meja.map((m) => (
+                  <div
+                    key={m.id_meja}
+                    className={`meja ${
+                      m.status_meja === "tersedia" ? "tersedia" : "terisi"
+                    }`}
+                    onClick={() => openDialog(m)}
+                  >
+                    {m.nomor_meja}
+                  </div>
+                ))}
+              </div>
+            {/* </div> */}
           </div>
-          {/* 
-          <div className="label-kasir">Kasir</div>
-          <div className="label-pintu">Pintu</div> */}
         </div>
       </div>
 

@@ -14,7 +14,7 @@
 .modal-box.edit-pesanan {
   background: #fff;
   border-radius: 10px;
-  width: 500px;
+  width: 700px;
   padding: 20px;
   max-height: 90vh; /* ⬅️ batas tinggi maksimal */
   overflow-y: auto; /* ⬅️ biar bisa di-scroll */
@@ -34,6 +34,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid #1e1e1e;
+}
+
+.modal-header h3 {
+  font-weight: bold;
 }
 
 .list-menu {
@@ -43,13 +48,62 @@
 }
 
 .item-menu {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 100px 120px 90px; /* nama menu | harga | qty control | hapus btn */
   align-items: center;
+  gap: 8px;
   margin-bottom: 10px;
 }
 
+.table-harga {
+  text-align: right;
+}
+
+.status-nama {
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+}
+
+.btn-minus {
+  border-radius: 5px;
+  border: 1.5px solid #1e1e1e;
+  background-color: transparent;
+}
+
+.btn-plus {
+  border-radius: 5px;
+  border: 1.5px solid #1e1e1e;
+  background-color: transparent;
+}
+
 .qty-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.qty-control button {
+  padding: 4px 8px;
+}
+
+.hapus {
+  background-color: #d33;
+  color: white;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.hapus:hover {
+  background-color: #b72828;
+}
+
+
+/* .qty-control {
   display: flex;
   align-items: center;
 }
@@ -65,28 +119,33 @@
   padding: 4px 8px;
   border-radius: 4px;
   margin-left: 10px;
-}
+} */
 
 .badge.merah {
   background: #e74c3c;
   color: white;
   padding: 4px 8px;
   border-radius: 5px;
-  margin-top: 10px;
-  display: inline-block;
 }
 
 .modal-footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  border-top: 2px solid #1e1e1e;
 }
 
 .btn.batal {
-  background: #ccc;
+  background: transparent;
+  color: #29D840;
+  border: 2px solid #29D840;
+  font-weight: 520;
 }
 
 .btn.simpan {
-  background: #2ecc71;
+  background: #29D840;
+  border: 2px solid #29D840;
   color: white;
+  font-weight: 520;
+}
+
+.hr-kartu {
+  border-bottom: 2px solid #1e1e1e;
 }

@@ -15,6 +15,8 @@ import EditPesananModal from "../../components/EditPesananModal";
 // import BatalkanPesananModal from "../../components/BatalkanPesananModal";
 import { batalkanTransaksi } from "../../services/api";
 import { updateDetailTransaksi } from "../../services/api"; // pastikan ada
+import Dropdown from 'react-bootstrap/Dropdown';
+import { forwardRef } from "react";
 
 const DaftarPesananKasir = () => {
   const [transaksi, setTransaksi] = useState([]);
@@ -154,63 +156,111 @@ const DaftarPesananKasir = () => {
     }
   };
 
+  const CustomToggle = forwardRef(({ onClick }, ref) => (
+    <span
+      ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+      style={{
+        cursor: "pointer",
+        fontSize: "18px",
+        color: "#333",
+        userSelect: "none",
+        padding: "10px", // 🔹 tambahkan padding
+        display: "inline-flex", // 🔹 biar padding terasa
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "6px", // opsional biar rapi
+      }}
+    >
+      <i className="fa-solid fa-ellipsis-vertical"></i>
+    </span>
+  ));
+
   return (
     <div className="kasir-container">
       <SidebarKasir />
       <div className="kasir-main">
         <Topbar />
-        <div className="dashboard-content">
-          <h1>Daftar Pesanan</h1>
-          <div className="grid-pesanan">
-            {transaksi.map((trx) => (
-              <div key={trx.id_transaksi} className="kartu-pesanan">
-                <div className="header-kartu">
-                  <strong>{trx.id_meja || "XX"}</strong>
-                  <span>
-                    {new Date(trx.tanggal_transaksi).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </span>
-                  {/* Dropdown langsung tampil */}
-                  <div className="dropdown-menu show">
-                    <button onClick={() => handleEdit(trx)}>
-                      Edit Pesanan
+        <div className="dashboard-content-kasir">
+
+          <div className="card-content-kasir">
+            <h1>Daftar Pesanan</h1>
+            <div className="hr-judul"></div>
+
+            <div className="grid-pesanan">
+              {transaksi.map((trx) => (
+                <div key={trx.id_transaksi} className="kartu-pesanan">
+                  <div className="header-kartu-kasir">
+                    <strong>Meja No. {trx.id_meja || "XX"}</strong>
+
+                      {/* Dropdown Bootstrap */}
+                      <Dropdown align="end">
+                        <Dropdown.Toggle as={CustomToggle} />
+
+                        <Dropdown.Menu>
+                          <Dropdown.Item onClick={() => handleEdit(trx)}>
+                            Edit Pesanan
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => handleBatalkan(trx.id_transaksi)}>
+                            Batalkan
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+
+                  </div>
+
+                  <div className="body-kartu">
+                    <span className="jam-order">
+                        {new Date(trx.tanggal_transaksi).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                    </span>
+
+                    <div className="nama-status">
+                    <p>
+                      <strong>{trx.nama_pelanggan}</strong>
+                    </p>
+
+                    <p className="status-belum">Belum Dibayar</p>
+                    </div>
+
+                    <div className="hr-pesanan-atas"></div>
+
+                    <ul className="list-pesanan-ksr">
+                      {trx.detail_transaksis.slice(0, 5).map((item, i) => (
+                        <li key={i}>
+                          {item.menu?.nama_menu} x {item.jumlah}
+                        </li>
+                      ))}
+                      {trx.detail_transaksis.length > 5 && (
+                        <li>Dan {trx.detail_transaksis.length - 5} lainnya...</li>
+                      )}
+                    </ul>
+
+                    <div className="hr-pesanan-bawah"></div>
+
+                  </div>
+
+                  <div className="footer-kartu">
+                    <button className="rincian-btn" onClick={() => handleDetail(trx.id_transaksi)}>
+                      Lihat Rincian
                     </button>
-                    <button onClick={() => handleBatalkan(trx.id_transaksi)}>
-                      Batalkan
+                    <button className="pembayaran-btn" onClick={() => handlePembayaran(trx.id_transaksi)}>
+                      Pembayaran
                     </button>
                   </div>
                 </div>
+              ))}
+            </div>
 
-                <div className="body-kartu">
-                  <p>
-                    <strong>{trx.nama_pelanggan}</strong>
-                  </p>
-                  <p className="status-belum">Belum Dibayar</p>
-                  <ul>
-                    {trx.detail_transaksis.slice(0, 5).map((item, i) => (
-                      <li key={i}>
-                        {item.menu?.nama_menu} x {item.jumlah}
-                      </li>
-                    ))}
-                    {trx.detail_transaksis.length > 5 && (
-                      <li>Dan {trx.detail_transaksis.length - 5} lainnya...</li>
-                    )}
-                  </ul>
-                </div>
-
-                <div className="footer-kartu">
-                  <button onClick={() => handleDetail(trx.id_transaksi)}>
-                    Lihat Rincian Pesanan
-                  </button>
-                  <button onClick={() => handlePembayaran(trx.id_transaksi)}>
-                    Pembayaran
-                  </button>
-                </div>
-              </div>
-            ))}
           </div>
+
+
+
         </div>
       </div>
 

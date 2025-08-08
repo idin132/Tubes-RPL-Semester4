@@ -63,14 +63,19 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  background-image: url('../../public/gambar/bg-landing-page-3.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* Main content */
-.dashboard-content {
+.dashboard-content-pelayan {
   padding: 30px;
 }
 
-.dashboard-content {
+.dashboard-content-pelayan {
   padding: 20px;
   overflow-y: auto; /* jika dibutuhkan */
   flex: 1;
@@ -81,7 +86,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 10px;
   overflow-x: auto;
   max-height: calc(100vh - 200px);
 }
@@ -91,6 +96,9 @@ body {
   overflow-y: auto;
 }
 
+.font-cst-meja {
+  font-size: 30px;
+}
 
 .meja {
   height: 100px;

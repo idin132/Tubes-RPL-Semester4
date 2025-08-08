@@ -32,31 +32,34 @@ const KasirPage = () => {
       <SidebarKasir />
       <div className="kasir-main">
         <Topbar />
-        <div className="dashboard-content">
-          <h1>Dashboard</h1>
+        <div className="dashboard-content-kasir">
 
-          <div className="stats">
-            <div className="stat-box outline">
-              <h4>Pendapatan Hari Ini</h4>
-              <p>Rp {statistik.pendapatanHariIni.toLocaleString()}</p>
+          <div className="card-content-kasir">
+            {/* Judul Page */}
+            <h1>Dashboard</h1>
+            <div className="hr-judul"></div>
+
+            <div className="stats-kasir">
+
+              <div className="stat-box-kasir green-kasir">
+                <h4>Pendapatan Hari Ini</h4>
+                <p>Rp {statistik.pendapatanHariIni.toLocaleString()}</p>
+              </div>
+
+              <div className="stat-box-kasir yellow-kasir">
+                <h4>Pesanan Hari Ini</h4>
+                <p><i class="fa-solid fa-clipboard-list icon-stat"></i> {statistik.jumlahPesananHariIni}</p>
+              </div>
+
+              <div className="stat-box-kasir outline-kasir">
+                <h4>Total Pendapatan</h4>
+                <p>Rp {statistik.totalPendapatan.toLocaleString()}</p>
+              </div>
+
             </div>
-            <div className="stat-box outline">
-              <h4>Pesanan Hari Ini</h4>
-              <p>{statistik.jumlahPesananHariIni}</p>
-            </div>
-            <div className="stat-box outline">
-              <h4>Total Pendapatan</h4>
-              <p>Rp {statistik.totalPendapatan.toLocaleString()}</p>
-            </div>
+
           </div>
 
-          {/* Dummy chart tetap bisa ditampilkan */}
-          {/* <div className="chart-section">
-            <h2>Pendapatan Selama 30 Hari Kebelakang</h2>
-            <div className="chart-placeholder">
-              <p>[Grafik Dummy Placeholder]</p>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
