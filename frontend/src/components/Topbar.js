@@ -1,6 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 import "../assets/topbar.css";
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Topbar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -25,14 +26,25 @@ const Topbar = () => {
 
   return (
     <div className="topbar">
-      {/* <div className="topbar-left">
-        <span className="brand">🍽 DineFlow</span>
-      </div> */}
       <div className="topbar-right">
-        <span className="username">{user?.nama || "Guest"}</span>
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
+
+        <NavDropdown
+        className="username"
+          title={
+            <span className="username">
+              <i className="fa-solid fa-user"></i> {user?.nama || "Guest"}
+            </span>
+          }
+          align="end"
+        >
+
+          <NavDropdown.Item onClick={handleLogout}>
+            <i className="fa-solid fa-right-from-bracket"></i> Logout
+          </NavDropdown.Item>
+        </NavDropdown>
+        {/* <button className="logout-btn" onClick={handleLogout}>
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button> */}
       </div>
     </div>
   );
