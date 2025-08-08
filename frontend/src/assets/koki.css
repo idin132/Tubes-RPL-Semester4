@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: #f9f9f9;
 }
 
@@ -95,4 +95,13 @@ body {
 }
 .btn-selesai:hover {
   background-color: #27ae60;
+}
+
+.koki-content {
+  padding: 30px;
+}
+
+.koki-content h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
 }
