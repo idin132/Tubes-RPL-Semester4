@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { getMenus, createTransaksi } from "../../services/api";
 import MenuCard from "../../components/MenuCard";
+import Swal from "sweetalert2";
 import "../../assets/OrderPage.css";
 
 const OrderPage = () => {
   const [menus, setMenus] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [cart, setCart] = useState([]);
-  const [namaPelanggan, setNamaPelanggan] = useState('');
+  const [namaPelanggan, setNamaPelanggan] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
@@ -37,6 +39,20 @@ const OrderPage = () => {
     setCart(cart.filter((item) => item.id_menu !== id_menu));
   };
 
+  const categories = [
+    { label: "Semua Menu", value: "Semua" },
+    { label: "Makanan", value: "Makanan" },
+    { label: "Minuman", value: "Minuman" },
+    { label: "Camilan", value: "Camilan" },
+    { label: "Paket Hemat", value: "Paket Hemat" },
+  ];
+
+  const filteredMenus = menus.filter((m) =>
+    selectedCategory === "Semua"
+      ? true
+      : (m.kategori || "").toLowerCase() === selectedCategory.toLowerCase()
+  );
+
   const updateJumlah = (id_menu, delta) => {
     setCart(
       cart.map((item) =>
@@ -49,8 +65,18 @@ const OrderPage = () => {
 
   const handleCheckout = async () => {
     const id_meja = parseInt(localStorage.getItem("id_meja") || "0");
-    if (!id_meja) return alert("ID Meja tidak ditemukan.");
-    if (!namaPelanggan.trim()) return alert("Nama pelanggan wajib diisi.");
+    if (!id_meja)
+      return Swal.fire({
+        title: "Perhatian!",
+        text: "Id Meja Tidak Ditemukan.",
+        icon: "warning",
+      });
+    if (!namaPelanggan.trim())
+      return Swal.fire({
+        title: "Perhatian!",
+        text: "Nama Pelanggan Wajib Diisi",
+        icon: "warning",
+      });
 
     const data = {
       id_meja,
@@ -66,12 +92,20 @@ const OrderPage = () => {
 
     try {
       await createTransaksi(data);
-      alert("Pesanan berhasil dikirim!");
+      Swal.fire({
+        title: "Berhasil!",
+        text: "Pesanan Anda telah dikonfirmasi.",
+        icon: "success",
+      });
       setCart([]);
-      setNamaPelanggan('');
+      setNamaPelanggan("");
       setShowConfirm(false);
     } catch (err) {
-      alert("Gagal mengirim pesanan!");
+      Swal.fire({
+        title: "Error!",
+        text: "Gagal Mengirim Pesanan",
+        icon: "error",
+      });
     }
   };
 
@@ -82,62 +116,91 @@ const OrderPage = () => {
   );
 
   return (
-
     <div className="luar">
-
       {/* Navigasi */}
       <div className="navbar-cst">
-            <div className="navbar-title-cst">DineFlow</div>
-            <nav>
-              <a className="a-custom-cst" href="../">Beranda</a>
-              <a className="a-custom-cst" href="../">Tentang Kami</a>
-              <a
-                className="a-custom-x-cst"
-                href="https://wa.me/6287876798623"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Kontak
-              </a>
-            </nav>
+        <div className="navbar-title-cst">DineFlow</div>
+        <nav>
+          <a className="a-custom-cst" href="../">
+            Beranda
+          </a>
+          <a className="a-custom-cst" href="../">
+            Tentang Kami
+          </a>
+          <a
+            className="a-custom-x-cst"
+            href="https://wa.me/6287876798623"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Kontak
+          </a>
+        </nav>
+      </div>
+
+      <div className="header-cst">
+        <div className="header-title-cst">Daftar Menu</div>
+      </div>
+
+      <div className="order-page-cst">
+        {/* <div className="kategori-area">
+          <button className="btn-kategori active">
+            <i class="fa-solid fa-box-open"></i> Semua Menu
+          </button>
+          <button className="btn-kategori">
+            <i class="fa-solid fa-box-open"></i> Makanan
+          </button>
+          <button className="btn-kategori">
+            <i class="fa-solid fa-box-open"></i> Minuman
+          </button>
+          <button className="btn-kategori">
+            <i class="fa-solid fa-box-open"></i> Camilan
+          </button>
+          <button className="btn-kategori">
+            <i class="fa-solid fa-box-open"></i> Paket Hemat
+          </button>
+          <div className="menu-area-cst">
+            {filteredMenus.map((menu) => (
+              <MenuCard key={menu.id_menu} menu={menu} onAdd={addToCart} />
+            ))}
+          </div>
+        </div> */}
+        <div className="kategori-area">
+          {categories.map((cat) => (
+            <button
+              key={cat.value}
+              className={`btn-kategori ${
+                selectedCategory === cat.value ? "active" : ""
+              }`}
+              onClick={() => setSelectedCategory(cat.value)}
+            >
+              <i className="fa-solid fa-box-open"></i> {cat.label}
+            </button>
+          ))}
+
+          <div className="menu-area-cst">
+            {filteredMenus.map((menu) => (
+              <MenuCard key={menu.id_menu} menu={menu} onAdd={addToCart} />
+            ))}
+          </div>
         </div>
 
-        <div className="header-cst">
-          <div className="header-title-cst">Daftar Menu</div>
-        </div>
-
-        <div className="order-page-cst">
-
-          <div className="kategori-area">
-            <button className="btn-kategori active"><i class="fa-solid fa-box-open"></i> Semua Menu</button>
-            <button className="btn-kategori"><i class="fa-solid fa-box-open"></i> Makanan</button>
-            <button className="btn-kategori"><i class="fa-solid fa-box-open"></i> Minuman</button>
-            <button className="btn-kategori"><i class="fa-solid fa-box-open"></i> Camilan</button>
-            <button className="btn-kategori"><i class="fa-solid fa-box-open"></i> Paket Hemat</button>
-              <div className="menu-area-cst">
-                {menus.map((menu) => (
-                  <MenuCard key={menu.id_menu} menu={menu} onAdd={addToCart} />
-                ))}
-              </div>
+        <div className="order-area-cst">
+          <div className="input-group-cst">
+            <label htmlFor="nama">Nama Pelanggan</label>
+            <input
+              className="input-nama"
+              type="text"
+              id="nama"
+              placeholder="Masukkan Nama Anda"
+              value={namaPelanggan}
+              onChange={(e) => setNamaPelanggan(e.target.value)}
+            />
           </div>
 
-          <div className="order-area-cst">
-            <div className="input-group-cst">
-              <label htmlFor="nama">Nama Pelanggan</label>
-              <input
-                className="input-nama"
-                type="text"
-                id="nama"
-                placeholder="Masukkan Nama Anda"
-                value={namaPelanggan}
-                onChange={(e) => setNamaPelanggan(e.target.value)}
-              />
-            </div>
-
-            <h3 className="pesan-title">Order Menu</h3>
-            <div className="order-items-scrollable">
+          <h3 className="pesan-title">Order Menu</h3>
+          <div className="order-items-scrollable">
             {cart.map((item) => (
-
               <div className="order-item-cst" key={item.id_menu}>
                 <img
                   src={item.gambar || "../../assets/gambar/makanan.jpeg"}
@@ -148,9 +211,13 @@ const OrderPage = () => {
                   <p>Rp{item.harga_menu.toLocaleString()}</p>
                 </div>
                 <div className="order-controls-cst">
-                  <button onClick={() => updateJumlah(item.id_menu, -1)}>-</button>
+                  <button onClick={() => updateJumlah(item.id_menu, -1)}>
+                    -
+                  </button>
                   <span>{item.jumlah}</span>
-                  <button onClick={() => updateJumlah(item.id_menu, 1)}>+</button>
+                  <button onClick={() => updateJumlah(item.id_menu, 1)}>
+                    +
+                  </button>
                 </div>
                 <button
                   className="remove-btn-cst"
@@ -160,29 +227,55 @@ const OrderPage = () => {
                 </button>
               </div>
             ))}
-            </div>
+          </div>
 
-            <div className="hr-summary"></div>
+          <div className="hr-summary"></div>
 
-            <div className="order-summary-cst">
-              <p className="biaya-layanan-kiri">
-                Biaya Layanan <strong className="biaya-layanan-kanan">Rp{serviceFee.toLocaleString()}</strong>
-              </p>
-              <p className="total-harga-kiri">
-                Total Harga{" "}
-                <strong className="total-harga-kanan">Rp{(totalHarga + serviceFee).toLocaleString()}</strong>
-              </p>
-              <button
+          <div className="order-summary-cst">
+            <p className="biaya-layanan-kiri">
+              Biaya Layanan{" "}
+              <strong className="biaya-layanan-kanan">
+                Rp{serviceFee.toLocaleString()}
+              </strong>
+            </p>
+            <p className="total-harga-kiri">
+              Total Harga{" "}
+              <strong className="total-harga-kanan">
+                Rp{(totalHarga + serviceFee).toLocaleString()}
+              </strong>
+            </p>
+            <button
+              className="checkout-btn-cst"
+              onClick={() => {
+                Swal.fire({
+                  title: "Konfirmasi Pesanan",
+                  text: "Pesanan sudah sesuai?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Ya, lanjutkan!",
+                  cancelButtonText: "Batal",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    handleCheckout();
+                  }
+                });
+              }}
+            >
+              Pesan Sekarang
+            </button>
+            {/* <button
                 className="checkout-btn-cst"
                 onClick={() => setShowConfirm(true)}
               >
                 Pesan Sekarang
-              </button>
-            </div>
+              </button> */}
           </div>
+        </div>
 
-          {/* Konfirmasi Checkout */}
-          {showConfirm && (
+        {/* Konfirmasi Checkout */}
+        {/* {showConfirm && (
             <div className="confirm-overlay-cst" onClick={() => setShowConfirm(false)}>
               <div className="confirm-box-cst" onClick={(e) => e.stopPropagation()}>
                 <p>Pesanan sudah sesuai?</p>
@@ -196,8 +289,8 @@ const OrderPage = () => {
                 </div>
               </div>
             </div>
-          )}
-        </div>
+          )} */}
+      </div>
     </div>
   );
 };
