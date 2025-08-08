@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SidebarOwner from "../../components/SidebarOwner";
 import Topbar from "../../components/Topbar";
 import DataTable from "react-data-table-component";
+import Swal from "sweetalert2";
 import "../../assets/owner.css";
 import {
   getAllMenu,
@@ -38,21 +39,60 @@ const OwnerMenuPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (editId) {
-      await UpdateMenu(editId, form);
+      // Konfirmasi sebelum update
+      Swal.fire({
+        title: "Simpan Perubahan?",
+        text: "Perubahan akan disimpan permanen.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, simpan",
+        cancelButtonText: "Batal",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            await UpdateMenu(editId, form);
+            Swal.fire({
+              icon: "success",
+              title: "Berhasil!",
+              text: "Menu berhasil diperbarui.",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+
+            resetForm();
+          } catch (error) {
+            Swal.fire({
+              icon: "error",
+              title: "Gagal!",
+              text: "Terjadi kesalahan saat memperbarui.",
+            });
+          }
+        }
+      });
     } else {
-      await CreateMenu(form);
+      try {
+        await CreateMenu(form);
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil!",
+          text: "Menu berhasil ditambahkan.",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        resetForm();
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Gagal!",
+          text: "Terjadi kesalahan saat menambahkan menu.",
+        });
+      }
     }
-    setForm({
-      nama_menu: "",
-      harga_menu: "",
-      kategori: "",
-      status_menu: "Tersedia",
-      deskripsi: "",
-    });
-    setEditId(null);
-    setShowForm(false);
-    fetchData();
   };
 
   const handleEdit = (menu) => {
@@ -62,10 +102,37 @@ const OwnerMenuPage = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Yakin ingin menghapus menu ini?")) {
-      await DeleteMenu(id);
-      fetchData();
-    }
+    Swal.fire({
+      title: "Apakah Anda Yakin?",
+      text: "Menu ini akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await DeleteMenu(id); // Fungsi API kamu
+          fetchData(); // Refresh data setelah hapus
+
+          Swal.fire({
+            title: "Terhapus!",
+            text: "Menu berhasil dihapus.",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (error) {
+          Swal.fire({
+            title: "Gagal!",
+            text: "Terjadi kesalahan saat menghapus.",
+            icon: "error",
+          });
+        }
+      }
+    });
   };
 
   const filteredMenu = menuList.filter((m) => {
@@ -133,6 +200,19 @@ const OwnerMenuPage = () => {
       button: true,
     },
   ];
+
+  const resetForm = () => {
+    setForm({
+      nama_menu: "",
+      harga_menu: "",
+      kategori: "",
+      status_menu: "Tersedia",
+      deskripsi: "",
+    });
+    setEditId(null);
+    setShowForm(false);
+    fetchData();
+  };
 
   return (
     <div className="owner-container">
