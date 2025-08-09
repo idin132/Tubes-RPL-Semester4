@@ -50,12 +50,12 @@ const OwnerPage = () => {
           </div>
 
           {/* Dummy chart tetap bisa ditampilkan */}
-          <div className="chart-section">
+          {/* <div className="chart-section">
             <h2>Pendapatan Selama 30 Hari Kebelakang</h2>
             <div className="chart-placeholder">
               <p>[Grafik Dummy Placeholder]</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

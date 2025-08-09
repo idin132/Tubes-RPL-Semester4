@@ -43,11 +43,24 @@ const RiwayatTransaksiOwner = () => {
 
   const columns = [
     {
+      name: "Tanggal",
+      selector: (row) => {
+        const date = new Date(row.tanggal_transaksi);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+      },
+      sortable: true,
+      width: "120px",
+    },
+    {
       name: "Waktu",
       selector: (row) =>
         new Date(row.tanggal_transaksi).toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
+          hour12: false,
         }),
       sortable: true,
       width: "100px",
