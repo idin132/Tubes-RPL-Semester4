@@ -17,7 +17,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://api-dineflowrpl-production.up.railway.app/api/user/login",
+        "http://localhost:5000/api/user/login",
         form
       );
       const user = res.data.user;
