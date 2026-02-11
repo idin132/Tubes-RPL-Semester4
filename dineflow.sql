@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 28, 2025 at 08:49 AM
+-- Generation Time: Feb 11, 2026 at 01:13 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -50,7 +50,15 @@ INSERT INTO `detail_transaksi` (`id_detail_transaksi`, `id_transaksi`, `id_menu`
 (11, 4, 4, 1, 30000),
 (12, 4, 3, 2, 50000),
 (13, 5, 3, 2, 50000),
-(14, 5, 4, 2, 60000);
+(14, 5, 4, 2, 60000),
+(15, 6, 1, 1, 15000),
+(16, 6, 3, 1, 25000),
+(17, 6, 4, 1, 30000),
+(19, 7, 1, 3, 45000),
+(20, 8, 1, 1, 15000),
+(21, 8, 3, 1, 25000),
+(22, 8, 4, 1, 30000),
+(23, 9, 1, 4, 60000);
 
 -- --------------------------------------------------------
 
@@ -178,8 +186,12 @@ INSERT INTO `transaksi` (`id_transaksi`, `id_meja`, `nama_pelanggan`, `tanggal_t
 (1, 1, 'Idin Naufal Hakim', '2025-07-17 09:07:04', 'cash', 300000, 270000, 'selesai', 'sudah bayar', ''),
 (2, 1, 'Idin', '2025-07-18 03:06:59', 'cash', 120000, 101000, 'selesai', 'sudah bayar', ''),
 (3, 10, 'Idin Naufal Hakim', '2025-07-18 05:49:53', 'cash', 300000, 276000, 'selesai', 'sudah bayar', ''),
-(4, 10, 'Rizqi Bakar', '2025-07-25 09:17:49', '', 0, 89000, 'pending', 'belum bayar', ''),
-(5, 1, 'Dwi Putra Juniargi', '2025-07-25 09:32:46', '', 0, 111000, 'pending', 'belum bayar', '');
+(4, 10, 'Rizqi Bakar', '2025-07-25 09:17:49', '', 0, 89000, 'selesai', 'belum bayar', ''),
+(5, 1, 'Dwi Putra Juniargi', '2025-07-25 09:32:46', '', 0, 111000, 'selesai', 'belum bayar', ''),
+(6, 2, 'Cahya', '2026-01-14 02:58:47', 'cash', 100000, 71000, 'selesai', 'sudah bayar', ''),
+(7, 10, 'Idin Naufal Hakim', '2026-02-10 07:21:21', 'cash', 100000, 46000, 'selesai', 'sudah bayar', ''),
+(8, 10, 'orang', '2026-02-11 12:59:58', 'qris', 1000000, 71000, 'selesai', 'sudah bayar', ''),
+(9, 1, 'people', '2026-02-11 13:08:20', '', 0, 61000, 'pending', 'belum bayar', '');
 
 -- --------------------------------------------------------
 
@@ -200,11 +212,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `nama`, `role`, `username`, `password`) VALUES
-(1, 'Kasir', 'kasir', 'kasirdineflow', '$2a$12$BQZxKzGV9Z9NJj9lW0HM4.VUHszAbDCbCyrrCXGuyV4lQ4q2jrGre'),
-(2, 'pelayan', 'pelayan', 'pelayandineflow', '$2a$12$xJTydQiHam5vEbJl1mjDNurcJakZpdE8XSe.dX4WOYsMkHUUfxRe6'),
-(3, 'koki', 'koki', 'kokidineflow', '$2a$12$cxD5BBRJxXY9S7hb.NEo0uBHjWYd8AjgAowAONx0OTL5V/8ZUfW7y'),
-(4, 'Ujang Kedu', 'kasir', 'ujangkedu', '$2a$12$BQZxKzGV9Z9NJj9lW0HM4.VUHszAbDCbCyrrCXGuyV4lQ4q2jrGre'),
-(5, 'Yang Maha Raja', 'owner', 'ownerdineflow', '$2a$12$xJTydQiHam5vEbJl1mjDNurcJakZpdE8XSe.dX4WOYsMkHUUfxRe6');
+(1, 'Kasir', 'kasir', 'kasirdineflow', '$2a$12$c4YFK8SIJ9GE.eqj3sCCC.MltmmVRJhaCDX0B.kKK6yvHrD2jHHGy'),
+(2, 'pelayan', 'pelayan', 'pelayandineflow', '$2a$12$DmD0dkNXW2F2GgAVjrQs..n/XdKqPFV.Aa1DaMcK8QsCvTe2qLBEy'),
+(3, 'koki', 'koki', 'kokidineflow', '$2a$12$cll8n8rMZr463ZsNnSGOEOHjLIRbHt4DrpfzWi2G6D1I88z0Az37G'),
+(4, 'Ujang Kedu', 'kasir', 'ujangkedu', '$2a$12$cll8n8rMZr463ZsNnSGOEOHjLIRbHt4DrpfzWi2G6D1I88z0Az37G'),
+(5, 'Yang Maha Raja', 'owner', 'ownerdineflow', '$2a$12$hiGjpsngcLqgCGRFesTZ8OgF3z5xq3LEdBh7Mnv3P00fndp7O.qLK');
 
 --
 -- Indexes for dumped tables
@@ -250,7 +262,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail_transaksi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_detail_transaksi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `meja`
@@ -268,7 +280,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_transaksi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -284,8 +296,8 @@ ALTER TABLE `users`
 -- Constraints for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  ADD CONSTRAINT `detail_transaksi_ibfk_366` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detail_transaksi_ibfk_367` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `detail_transaksi_ibfk_378` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_transaksi_ibfk_379` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
